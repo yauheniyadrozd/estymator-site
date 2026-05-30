@@ -7,41 +7,183 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300;1,9..144,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{--W:#EBEBE9;--C:#DEC0AD;--R:#B41D15;--O:#001B2E;--T:#114A6B;--G:#E8A784;--black:#000;--RD:#8B1510;}
-html{scroll-behavior:smooth;overflow-x:hidden;} body{background:var(--O);color:var(--W);font-family:'IBM Plex Mono',monospace;cursor:none;overflow-x:hidden;} a{color:inherit;}
-#cur{position:fixed;z-index:9999;pointer-events:none;width:16px;height:16px;background:var(--G);border-radius:50%;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:exclusion;}#cur2{position:fixed;z-index:9998;pointer-events:none;width:44px;height:44px;border:1px solid var(--C);border-radius:50%;transform:translate(-50%,-50%);transition:width .4s,height .4s,border-color .3s;}body.hov #cur{width:40px;height:40px;}body.hov #cur2{width:80px;height:80px;border-color:var(--G);}
-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 3rem;border-bottom:1px solid rgba(222,192,173,.08);}nav::before{content:'';position:absolute;inset:0;background:rgba(0,27,46,.86);backdrop-filter:blur(12px);z-index:-1;}.nlogo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.12em;color:var(--G);text-decoration:none;}.nlinks{display:flex;gap:1.6rem;list-style:none;align-items:center;}.nlinks a{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--C);text-decoration:none;opacity:.7;transition:opacity .2s,color .2s;}.nlinks a:hover,.nlinks a.active{opacity:1;color:var(--G);}.ncta{background:var(--R);color:var(--W)!important;padding:.5rem 1.2rem;opacity:1!important;}
-.hero{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;position:relative;overflow:hidden;padding-top:76px;}#bgCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}.hero-copy{position:relative;z-index:2;padding:8rem 3rem 4rem;background:linear-gradient(90deg,rgba(0,27,46,.97),rgba(0,27,46,.78));border-right:1px solid rgba(222,192,173,.12);display:flex;flex-direction:column;justify-content:flex-end;}.kicker{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--G);display:flex;gap:.8rem;align-items:center;margin-bottom:2rem;}.kicker::before{content:'';width:24px;height:1px;background:var(--G);}h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,12vw,11rem);line-height:.82;letter-spacing:.02em;}h1 .stroke{-webkit-text-stroke:1.5px var(--C);color:transparent;}.lead{font-size:.9rem;line-height:1.9;color:rgba(235,235,233,.62);font-weight:300;max-width:610px;margin:2.2rem 0 2rem;}.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}.btn{display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;text-transform:uppercase;letter-spacing:.13em;font-size:.72rem;font-weight:700;padding:1rem 1.5rem;transition:transform .2s,background .2s,color .2s,border-color .2s;}.btn:hover{transform:translateY(-2px);}.btn.primary{background:var(--R);color:var(--W);}.btn.primary:hover{background:var(--RD);}.btn.ghost{border:1px solid rgba(222,192,173,.35);color:var(--C);}.btn.ghost:hover{border-color:var(--G);color:var(--G);}.hero-panel{position:relative;z-index:2;display:grid;grid-template-rows:1fr 1fr;}.panel{padding:3rem;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}.panel.red{background:var(--R);}.panel.cream{background:var(--C);color:var(--O);}.panel::before{content:attr(data-bg);font-family:'Bebas Neue',sans-serif;font-size:15rem;color:rgba(0,0,0,.12);position:absolute;left:-.6rem;bottom:-3.8rem;line-height:1;}.panel.cream::before{color:rgba(0,27,46,.08);}.p-label{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;opacity:.6;margin-bottom:.8rem;}.p-title{font-family:'Fraunces',serif;font-size:2.7rem;line-height:1;font-weight:900;position:relative;}.p-text{font-size:.75rem;line-height:1.8;color:rgba(235,235,233,.7);max-width:380px;margin-top:1rem;position:relative;}.panel.cream .p-text{color:rgba(0,27,46,.62);}
-.color-strip{display:grid;grid-template-columns:repeat(6,1fr);height:6px;}.cs1{background:var(--O)}.cs2{background:var(--T)}.cs3{background:var(--R)}.cs4{background:var(--C)}.cs5{background:var(--G)}.cs6{background:var(--W)}
-.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:4rem;}.section-label{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--G);margin-bottom:1rem;}.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.4rem,7vw,6.2rem);line-height:.9;letter-spacing:.04em;}.section-title span{color:var(--R);}.section-desc{font-size:.8rem;line-height:1.8;color:rgba(235,235,233,.48);max-width:430px;text-align:right;}.dark{background:var(--black);padding:8rem 3rem;}.blue{background:var(--O);padding:8rem 3rem;}.teal{background:var(--T);padding:8rem 3rem;}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(235,235,233,.08);}.card{background:var(--O);padding:2.2rem;min-height:300px;position:relative;overflow:hidden;}.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--G);transform:scaleX(0);transform-origin:left;transition:transform .4s;}.card:hover::after{transform:scaleX(1);}.card-type{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--G);margin-bottom:1.2rem;}.card h3{font-family:'Fraunces',serif;font-size:1.35rem;line-height:1.15;margin-bottom:1rem;}.card p{font-size:.72rem;line-height:1.8;color:rgba(235,235,233,.5);}.chipline{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:1.5rem;}.chip{font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .6rem;border:1px solid rgba(222,192,173,.2);color:var(--C);}.steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(222,192,173,.1);border-left:1px solid rgba(222,192,173,.1);}.step{padding:2.4rem;min-height:290px;border-right:1px solid rgba(222,192,173,.1);border-bottom:1px solid rgba(222,192,173,.1);background:rgba(0,0,0,.12);transition:background .3s,transform .3s;}.step:hover{background:rgba(17,74,107,.25);transform:translateY(-4px);}.step-num{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--G);margin-bottom:2rem;}.step-title{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:900;margin-bottom:.9rem;}.step-text{font-size:.72rem;line-height:1.8;color:rgba(235,235,233,.5);font-weight:300;}.split{display:grid;grid-template-columns:1fr 1fr;min-height:58vh;}.split-left{background:var(--R);padding:5rem 3rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}.split-left::before{content:attr(data-bg);font-family:'Bebas Neue',sans-serif;font-size:14rem;color:rgba(0,0,0,.12);position:absolute;left:-.5rem;bottom:-3rem;line-height:1;}.split-right{background:var(--C);padding:5rem 3rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;color:var(--O);}.split-right::before{content:attr(data-bg);font-family:'Bebas Neue',sans-serif;font-size:14rem;color:rgba(0,27,46,.08);position:absolute;right:-.5rem;bottom:-3rem;line-height:1;}.ct-label{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;opacity:.6;position:relative;}.ct-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,5rem);line-height:.9;letter-spacing:.03em;position:relative;}.ct-p{font-size:.82rem;line-height:1.85;color:rgba(235,235,233,.68);max-width:430px;position:relative;}.split-right .ct-p{color:rgba(0,27,46,.62);}.contact-links{display:grid;gap:.8rem;position:relative;}.contact-links a{font-size:.78rem;text-decoration:none;transition:color .2s;}.split-left .contact-links a{color:var(--W);}.split-right .contact-links a{color:var(--O);}.contact-links a:hover{color:var(--G);}.foot{background:var(--O);border-top:1px solid rgba(222,192,173,.1);padding:3rem;}.foot-bottom{display:flex;justify-content:space-between;gap:2rem;align-items:center;}.fbc,.fbr{font-size:.62rem;color:rgba(235,235,233,.3);letter-spacing:.08em;}.fbr strong{color:var(--C);}.rv{opacity:0;transform:translateY(50px);transition:opacity .9s ease,transform .9s ease;}.rv.vis{opacity:1;transform:translateY(0);}body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.025) 2px,rgba(0,0,0,.025) 4px);pointer-events:none;z-index:1000;}
-@media(max-width:900px){body{cursor:auto;}#cur,#cur2{display:none;}nav{padding:1rem;align-items:flex-start;gap:1rem;}.nlinks{gap:.8rem;flex-wrap:wrap;justify-content:flex-end;}.hero,.split{grid-template-columns:1fr;}.hero-copy{padding:7rem 1.3rem 3rem;}.panel{min-height:280px;padding:2rem 1.3rem;}.dark,.blue,.teal{padding:5rem 1.3rem;}.section-head{display:block;}.section-desc{text-align:left;margin-top:1.5rem;}.grid3,.steps{grid-template-columns:1fr;}.foot{padding:2rem 1.3rem;}.foot-bottom{display:block;}.fbr{display:block;margin-top:1rem;}}
+/* studenci-specific */
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+}
 </style>
 </head>
 <body>
-<div id="cur"></div><div id="cur2"></div>
-<nav><a href="index.html" class="nlogo">ESTYMATOR</a><ul class="nlinks"><li><a href="index.html">Strona główna</a></li><li><a href="studenci.html" class="active">Dla studentów</a></li><li><a href="firmy.html">Dla firm</a></li><li><a href="#kontakt" class="ncta">Kontakt →</a></li></ul></nav>
-<section class="hero"><canvas id="bgCanvas"></canvas><div class="hero-copy"><div class="kicker">Studenci PWr · dołącz do Estymatora</div><h1><span class="stroke">Dla</span><br>studentów</h1><p class="lead">Osobna podstrona dla osób, które chcą wejść w machine learning, znaleźć zespół projektowy, zbudować portfolio i uczyć się przez praktykę.</p><div class="hero-actions"><a class="btn primary" href="#kontakt">Napisz do koła →</a><a class="btn ghost" href="firmy.html">Zobacz stronę dla firm →</a></div></div><div class="hero-panel"><div class="panel red" data-bg="ML"><div class="p-label">Dla początkujących</div><div class="p-title">Start bez presji</div><p class="p-text">Nie musisz mieć gotowego doświadczenia. Liczy się systematyczność, ciekawość i chęć pracy z kodem.</p></div><div class="panel cream" data-bg="CV"><div class="p-label">Dla ambitnych</div><div class="p-title">Projekt do portfolio</div><p class="p-text">Repozytorium, demo, metryki i prezentacja wyników — wszystko, co można pokazać przy rekrutacji.</p></div></div></section>
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<nav>
+  <a href="index.html" class="nlogo">ESTYMATOR</a>
+  <button class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nlinks">
+    <li><a href="studenci.html" class="active">Dla studentów</a></li>
+    <li><a href="firmy.html">Dla firm</a></li>
+    <li><a href="#kontakt" class="ncta">Dołącz →</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <canvas id="bgCanvas"></canvas>
+  <div class="hero-copy">
+    <div class="kicker">Studenci · W4 · PWr</div>
+    <h1><span class="stroke">Dla</span><br>Studen<span class="stroke">tów</span></h1>
+    <p class="lead">Dołącz do Estymatora — studenckiego koła naukowego ML/AI. Projekty, warsztaty, seminaria i społeczność pasjonatów sztucznej inteligencji.</p>
+    <div class="hero-actions">
+      <a href="#kontakt" class="btn primary">Dołącz teraz →</a>
+      <a href="index.html" class="btn ghost">Strona główna</a>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <div class="panel red" data-bg="Otwarte">
+      <div class="p-label">Rekrutacja</div>
+      <div class="p-title">Otwarta</div>
+      <p class="p-text">Przyjmujemy nowych członków przez cały rok akademicki. Zero egzaminów wstępnych.</p>
+    </div>
+    <div class="panel cream" data-bg="Level">
+      <div class="p-label">Wymagany poziom</div>
+      <div class="p-title">Każdy</div>
+      <p class="p-text">Przyjmujemy zarówno początkujących, jak i zaawansowanych. Liczy się ciekawość.</p>
+    </div>
+  </div>
+</section>
+
 <div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
-<section class="dark"><div class="section-head rv"><div><div class="section-label">Start w kole</div><h2 class="section-title">Dla <span>studentów</span></h2></div><p class="section-desc">Ta podstrona prowadzi osobę od pierwszego kontaktu do projektu, warsztatu i własnego portfolio technicznego.</p></div><div class="grid3 rv"><div class="card"><div class="card-type">Poziom 0</div><h3>Możesz zacząć bez doświadczenia</h3><p>Wystarczy znajomość podstaw programowania albo gotowość do nauki. Pomagamy wybrać pierwszą ścieżkę: Python, dane, klasyczne ML albo sieci neuronowe.</p><div class="chipline"><span class="chip">Python</span><span class="chip">sklearn</span><span class="chip">Git</span></div></div><div class="card"><div class="card-type">Praktyka</div><h3>Uczysz się na projekcie</h3><p>Nie kończy się na prezentacjach. Pracujesz z danymi, kodem, eksperymentami, metrykami i krótkim demo wyników.</p><div class="chipline"><span class="chip">Dane</span><span class="chip">Model</span><span class="chip">Demo</span></div></div><div class="card"><div class="card-type">Portfolio</div><h3>Budujesz GitHuba i CV</h3><p>Każdy projekt można opisać w README, dodać wykresy, wnioski i krótką prezentację. To pomaga przy stażach i rozmowach technicznych.</p><div class="chipline"><span class="chip">README</span><span class="chip">CV</span><span class="chip">Pitch</span></div></div></div></section>
-<section class="blue"><div class="section-head rv"><div><div class="section-label">Ścieżka</div><h2 class="section-title">Jak <span>dołączyć</span></h2></div><p class="section-desc">Prosta ścieżka dla osoby, która chce wejść do koła i zacząć pracę bez chaosu.</p></div><div class="steps rv"><div class="step"><div class="step-num">01</div><div class="step-title">Napisz wiadomość</div><p class="step-text">Napisz, czym się interesujesz i jaki masz poziom: początkujący, średni albo zaawansowany.</p></div><div class="step"><div class="step-num">02</div><div class="step-title">Przyjdź na spotkanie</div><p class="step-text">Poznasz aktualne projekty, ludzi z koła i zasady pracy w zespołach.</p></div><div class="step"><div class="step-num">03</div><div class="step-title">Wybierz projekt</div><p class="step-text">Możesz dołączyć do istniejącego projektu albo zaproponować własny temat.</p></div><div class="step"><div class="step-num">04</div><div class="step-title">Pokaż wynik</div><p class="step-text">Na końcu przygotowujesz demo, repozytorium, raport albo krótką prezentację.</p></div></div></section>
-<section class="teal"><div class="section-head rv"><div><div class="section-label">Co możesz robić</div><h2 class="section-title">Formaty <span>działania</span></h2></div><p class="section-desc">Możesz uczyć się spokojnie, pracować projektowo albo wejść w bardziej badawcze tematy.</p></div><div class="grid3 rv"><div class="card"><div class="card-type">Warsztaty</div><h3>Python, ML, DL, MLOps</h3><p>Krótkie spotkania techniczne: live coding, narzędzia, biblioteki, dobre praktyki i pytania.</p></div><div class="card"><div class="card-type">Projekty</div><h3>Zespoły semestralne</h3><p>Praca w małych grupach nad konkretnym problemem: NLP, Computer Vision, generative AI, MLOps lub analiza danych.</p></div><div class="card"><div class="card-type">Społeczność</div><h3>Seminaria i paper review</h3><p>Omawianie artykułów, modeli i narzędzi w prosty sposób, z naciskiem na zrozumienie oraz zastosowanie.</p></div></div></section>
-<section class="split" id="kontakt"><div class="split-left" data-bg="JOIN"><div class="ct-label">Kontakt dla studentów</div><h2 class="ct-h">Chcesz<br>dołączyć?</h2><p class="ct-p">Napisz krótko, czym się interesujesz i na jakim jesteś poziomie. Możesz też przyjść na spotkanie koła i wybrać projekt na miejscu.</p><div class="contact-links"><a href="mailto:estymator@pwr.edu.pl?subject=Chc%C4%99%20do%C5%82%C4%85czy%C4%87%20do%20Estymatora">estymator@pwr.edu.pl</a><a href="index.html#join">Jak dołączyć na stronie głównej →</a></div></div><div class="split-right" data-bg="B2B"><div class="ct-label">Nie jesteś studentem?</div><h2 class="ct-h">Zobacz<br>stronę<br>dla firm</h2><p class="ct-p">Dla partnerów przygotowana jest osobna podstrona z formatami współpracy, procesem i przykładami tematów.</p><div class="contact-links"><a href="firmy.html">Przejdź do strony dla firm →</a><a href="index.html">Wróć na główną →</a></div></div></section>
-<footer class="foot"><div class="foot-bottom"><span class="fbc">Estymator · podstrona dla studentów · Wrocław 2025</span><span class="fbr">Wydział Informatyki i Telekomunikacji · <strong>Politechnika Wrocławska</strong></span></div></footer>
 
-<script>
-const cur=document.getElementById('cur');const cur2=document.getElementById('cur2');let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}});
-(function animC(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;if(cur2){cur2.style.left=rx+'px';cur2.style.top=ry+'px';}requestAnimationFrame(animC);})();
-document.querySelectorAll('a,button,.card,.step').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));});
-const canvas=document.getElementById('bgCanvas');const ctx=canvas.getContext('2d');function resizeCvs(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}resizeCvs();window.addEventListener('resize',resizeCvs);
-const colors=['rgba(0,27,46,','rgba(17,74,107,','rgba(180,29,21,','rgba(222,192,173,','rgba(232,167,132,'];const pts=[];
-for(let i=0;i<80;i++)pts.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,vx:(Math.random()-.5)*.45,vy:(Math.random()-.5)*.45,r:Math.random()*3+1,ci:Math.floor(Math.random()*colors.length)});
-let hmx=window.innerWidth/2,hmy=window.innerHeight/2;document.addEventListener('mousemove',e=>{hmx=e.clientX;hmy=e.clientY;});
-function drawBg(){ctx.clearRect(0,0,canvas.width,canvas.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;const dx=hmx-p.x,dy=hmy-p.y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){p.x-=dx*.004;p.y-=dy*.004;}ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=colors[p.ci]+'0.55)';ctx.fill();});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<140){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(17,74,107,${.28*(1-d/140)})`;ctx.lineWidth=.5;ctx.stroke();}}requestAnimationFrame(drawBg);}drawBg();
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.12});document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-</script>
+<section class="dark">
+  <div class="section-head rv">
+    <div>
+      <div class="section-label">Dlaczego warto</div>
+      <h2 class="section-title">Co <span>zyskujesz</span></h2>
+    </div>
+    <p class="section-desc">Konkretne korzyści, które przekładają się na CV, umiejętności i sieć kontaktów.</p>
+  </div>
+  <div class="grid3 rv">
+    <div class="card">
+      <div class="card-type">Praktyka</div>
+      <h3>Prawdziwe projekty</h3>
+      <p>Pracujesz nad realnym kodem, danymi i problemami — nie tylko na zadaniach ze skryptu. Git, code review, sprinty.</p>
+      <div class="chipline">
+        <span class="chip">GitHub</span><span class="chip">PyTorch</span>
+        <span class="chip">HuggingFace</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-type">Wiedza</div>
+      <h3>Seminaria i paper review</h3>
+      <p>Co dwa tygodnie omawiamy najnowsze artykuły, modele i narzędzia. Zrozumienie, nie tylko prezentacja slajdów.</p>
+      <div class="chipline">
+        <span class="chip">arXiv</span><span class="chip">NeurIPS</span>
+        <span class="chip">ICLR</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-type">Kontakty</div>
+      <h3>Sieć i mentoring</h3>
+      <p>Opiekunowie naukowi, goście z firm, alumni w branży. Pomoc w wyborze tematu pracy dyplomowej lub stażu.</p>
+      <div class="chipline">
+        <span class="chip">LinkedIn</span><span class="chip">Staże</span>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section class="blue">
+  <div class="section-head rv">
+    <div>
+      <div class="section-label">Ścieżka</div>
+      <h2 class="section-title">Jak <span>dołączyć</span></h2>
+    </div>
+    <p class="section-desc">Prosta ścieżka dla osoby, która chce wejść do koła i zacząć pracę bez chaosu.</p>
+  </div>
+  <div class="steps-grid rv">
+    <div class="step-box">
+      <div class="step-num">01</div>
+      <div class="step-title">Napisz wiadomość</div>
+      <p class="step-text">Napisz, czym się interesujesz i jaki masz poziom: początkujący, średni albo zaawansowany.</p>
+    </div>
+    <div class="step-box">
+      <div class="step-num">02</div>
+      <div class="step-title">Przyjdź na spotkanie</div>
+      <p class="step-text">Poznasz aktualne projekty, ludzi z koła i zasady pracy w zespołach.</p>
+    </div>
+    <div class="step-box">
+      <div class="step-num">03</div>
+      <div class="step-title">Wybierz projekt</div>
+      <p class="step-text">Możesz dołączyć do istniejącego projektu albo zaproponować własny temat.</p>
+    </div>
+    <div class="step-box">
+      <div class="step-num">04</div>
+      <div class="step-title">Pokaż wynik</div>
+      <p class="step-text">Na końcu przygotowujesz demo, repozytorium, raport albo krótką prezentację.</p>
+    </div>
+  </div>
+</section>
+
+<section class="teal">
+  <div class="section-head rv">
+    <div>
+      <div class="section-label">Co możesz robić</div>
+      <h2 class="section-title">Formaty <span>działania</span></h2>
+    </div>
+    <p class="section-desc">Możesz uczyć się spokojnie, pracować projektowo albo wejść w bardziej badawcze tematy.</p>
+  </div>
+  <div class="grid3 rv">
+    <div class="card">
+      <div class="card-type">Warsztaty</div>
+      <h3>Python, ML, DL, MLOps</h3>
+      <p>Krótkie spotkania techniczne: live coding, narzędzia, biblioteki, dobre praktyki i pytania.</p>
+    </div>
+    <div class="card">
+      <div class="card-type">Projekty</div>
+      <h3>Zespoły semestralne</h3>
+      <p>Praca w małych grupach nad konkretnym problemem: NLP, Computer Vision, generative AI, MLOps lub analiza danych.</p>
+    </div>
+    <div class="card">
+      <div class="card-type">Społeczność</div>
+      <h3>Seminaria i paper review</h3>
+      <p>Omawianie artykułów, modeli i narzędzi w prosty sposób, z naciskiem na zrozumienie oraz zastosowanie.</p>
+    </div>
+  </div>
+</section>
+
+<section class="split" id="kontakt">
+  <div class="split-left" data-bg="JOIN">
+    <div class="ct-label">Kontakt dla studentów</div>
+    <h2 class="ct-h">Chcesz<br>dołączyć?</h2>
+    <p class="ct-p">Napisz krótko, czym się interesujesz i na jakim jesteś poziomie. Możesz też przyjść na spotkanie koła i wybrać projekt na miejscu.</p>
+    <div class="contact-links">
+      <a href="mailto:estymator@pwr.edu.pl?subject=Chc%C4%99%20do%C5%82%C4%85czy%C4%87%20do%20Estymatora">estymator@pwr.edu.pl</a>
+      <a href="index.html#join">Jak dołączyć na stronie głównej →</a>
+    </div>
+  </div>
+  <div class="split-right" data-bg="B2B">
+    <div class="ct-label">Nie jesteś studentem?</div>
+    <h2 class="ct-h">Zobacz<br>stronę<br>dla firm</h2>
+    <p class="ct-p">Dla partnerów przygotowana jest osobna podstrona z formatami współpracy, procesem i przykładami tematów.</p>
+    <div class="contact-links">
+      <a href="firmy.html">Przejdź do strony dla firm →</a>
+      <a href="index.html">Wróć na główną →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-bottom">
+    <span class="fbc">Estymator · podstrona dla studentów · Wrocław 2025</span>
+    <span class="fbr">Wydział Informatyki i Telekomunikacji · <strong>Politechnika Wrocławska</strong></span>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
 </body>
 </html>
