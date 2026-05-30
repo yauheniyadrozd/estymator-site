@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estymator · SKN · Politechnika Wrocławska</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300;1,9..144,900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --W: #EBEBE9;
+  --C: #DEC0AD;
+  --R: #B41D15;
+  --O: #001B2E;
+  --T: #114A6B;
+  --G: #E8A784;
+  --black: #000;
+  --RD: #8B1510;
+}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--O);color:var(--W);font-family:'IBM Plex Mono',monospace;cursor:none;overflow-x:hidden;}
+
+/* CURSOR */
+#cur{position:fixed;z-index:9999;pointer-events:none;width:16px;height:16px;background:var(--G);border-radius:50%;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:exclusion;}
+#cur2{position:fixed;z-index:9998;pointer-events:none;width:44px;height:44px;border:1px solid var(--C);border-radius:50%;transform:translate(-50%,-50%);transition:width .4s,height .4s,border-color .3s;pointer-events:none;}
+body.hov #cur{width:40px;height:40px;}
+body.hov #cur2{width:80px;height:80px;border-color:var(--G);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 3rem;border-bottom:1px solid rgba(222,192,173,.08);}
+nav::before{content:'';position:absolute;inset:0;background:rgba(0,27,46,.85);backdrop-filter:blur(12px);z-index:-1;}
+.nlogo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.12em;color:var(--G);text-decoration:none;}
+.nlinks{display:flex;gap:1.6rem;list-style:none;align-items:center;}
+.nlinks a{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--C);text-decoration:none;opacity:.7;transition:opacity .2s,color .2s;}
+.nlinks a:hover{opacity:1;color:var(--G);}
+.ncta{background:var(--R);color:var(--W)!important;padding:.5rem 1.2rem;opacity:1!important;}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:grid;grid-template-rows:1fr auto;}
+#bgCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+
+.hero-copy{position:relative;z-index:2;padding:8rem 3rem 4rem;background:linear-gradient(90deg,rgba(0,27,46,.97),rgba(0,27,46,.78));border-right:1px solid rgba(222,192,173,.12);display:flex;flex-direction:column;justify-content:flex-end;}
+.hero-copy .kicker{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--G);display:flex;gap:.8rem;align-items:center;margin-bottom:2rem;}
+.hero-copy .kicker::before{content:'';width:24px;height:1px;background:var(--G);}
+.hero-copy h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,12vw,11rem);line-height:.82;letter-spacing:.02em;}
+.hero-copy h1 .stroke{-webkit-text-stroke:1.5px var(--C);color:transparent;}
+.hero-copy .lead{font-size:.9rem;line-height:1.9;color:rgba(235,235,233,.62);font-weight:300;max-width:610px;margin:2.2rem 0 2rem;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:.75rem;text-decoration:none;text-transform:uppercase;letter-spacing:.13em;font-size:.72rem;font-weight:700;padding:1rem 1.5rem;transition:transform .2s,background .2s,color .2s,border-color .2s;}
+.btn:hover{transform:translateY(-2px);}
+.btn.primary{background:var(--R);color:var(--W);}
+.btn.primary:hover{background:var(--RD);}
+.btn.ghost{border:1px solid rgba(222,192,173,.35);color:var(--C);}
+.btn.ghost:hover{border-color:var(--G);color:var(--G);}
+
+.hero-panel{position:relative;z-index:2;display:grid;grid-template-rows:1fr 1fr;}
+.panel{padding:3rem;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+.panel.red{background:var(--R);}
+.panel.cream{background:var(--C);color:var(--O);}
+.panel::before{content:attr(data-bg);font-family:'Bebas Neue',sans-serif;font-size:15rem;color:rgba(0,0,0,.12);position:absolute;left:-.6rem;bottom:-3.8rem;line-height:1;}
+.panel.cream::before{color:rgba(0,27,46,.08);}
+.p-label{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(235,235,233,.65);margin-bottom:1rem;}
+.p-title{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;line-height:1.1;margin-bottom:.8rem;}
+.p-text{font-size:.95rem;line-height:1.8;color:rgba(235,235,233,.7);max-width:28rem;}
+
+/* HERO BOTTOM BAR */
+.hero-bar{position:relative;z-index:2;background:var(--black);border-top:1px solid rgba(222,192,173,.1);display:grid;grid-template-columns:repeat(4,1fr);}
+.hbar-item{padding:1.2rem 2rem;border-right:1px solid rgba(222,192,173,.1);display:flex;flex-direction:column;gap:.3rem;}
+.hbar-item:last-child{border-right:none;background:var(--G);color:var(--O);}
+.hbar-label{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;opacity:.5;}
+.hbar-val{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;}
+.hbar-item:last-child .hbar-label{color:var(--O);opacity:.6;}
+.hbar-item:last-child .hbar-val{color:var(--O);}
+
+/* TICKER */
+.ticker{background:var(--R);padding:.9rem 0;overflow:hidden;position:relative;}
+.ticker-track{display:flex;gap:3rem;animation:tick 22s linear infinite;white-space:nowrap;}
+.ticker-track2{display:flex;gap:3rem;animation:tick 22s linear infinite;white-space:nowrap;position:absolute;top:.9rem;left:100%;}
+.titem{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(235,235,233,.85);flex-shrink:0;display:flex;align-items:center;gap:1rem;}
+.tdot{width:3px;height:3px;background:var(--G);border-radius:50%;flex-shrink:0;}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+
+/* COLOR STRIP */
+.color-strip{display:grid;grid-template-columns:repeat(6,1fr);height:6px;}
+.cs1{background:var(--O);}
+.cs2{background:var(--T);}
+.cs3{background:var(--R);}
+.cs4{background:var(--C);}
+.cs5{background:var(--G);}
+.cs6{background:var(--W);}
+
+/* ===== MANIFESTO SECTION ===== */
+.manifesto{background:var(--black);padding:8rem 3rem;position:relative;overflow:hidden;}
+.manifesto-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:28vw;color:rgba(17,74,107,.05);letter-spacing:-.05em;white-space:nowrap;pointer-events:none;line-height:1;}
+.manifesto-inner{position:relative;z-index:1;display:grid;grid-template-columns:280px 1fr;gap:6rem;align-items:start;}
+.m-sidebar{}
+.m-label{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--G);margin-bottom:3rem;}
+.m-stat{margin-bottom:2.5rem;}
+.m-num{font-family:'Bebas Neue',sans-serif;font-size:4rem;line-height:1;letter-spacing:.05em;}
+.m-num.r{color:var(--R);}
+.m-num.c{color:var(--C);}
+.m-num.g{color:var(--G);}
+.m-slab{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(235,235,233,.35);margin-top:.2rem;}
+.m-divider{width:100%;height:1px;background:rgba(222,192,173,.12);margin:2rem 0;}
+.m-pwr{font-size:.7rem;line-height:1.6;color:rgba(235,235,233,.4);font-style:italic;}
+.m-pwr strong{color:var(--C);font-style:normal;}
+
+.m-body{}
+.m-quote{font-family:'Fraunces',serif;font-size:clamp(2.2rem,4vw,3.8rem);line-height:1.15;font-weight:300;font-style:italic;letter-spacing:-.02em;margin-bottom:3rem;}
+.m-quote em{font-style:normal;color:var(--G);}
+.m-quote strong{font-style:normal;font-weight:900;color:var(--C);}
+.m-para{font-size:.88rem;line-height:1.9;color:rgba(235,235,233,.55);font-weight:300;margin-bottom:1.5rem;max-width:600px;}
+.m-chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:2rem;}
+.mchip{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;background:rgba(17,74,107,.4);border:1px solid rgba(17,74,107,.6);color:var(--C);border-radius:2px;}
+
+/* ===== AREAS — FULL BLEED GRID ===== */
+.areas{padding:0;}
+.areas-header{background:var(--T);padding:4rem 3rem 3rem;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(235,235,233,.08);}
+.areas-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);letter-spacing:.05em;line-height:1;}
+.areas-h span{color:var(--G);}
+.areas-count{font-family:'Fraunces',serif;font-size:5rem;font-weight:900;color:rgba(235,235,233,.12);line-height:1;}
+
+.areas-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+.acard{position:relative;overflow:hidden;cursor:pointer;border-right:1px solid rgba(235,235,233,.06);border-bottom:1px solid rgba(235,235,233,.06);aspect-ratio:1;}
+.acard:nth-child(3n){border-right:none;}
+.acard-bg{position:absolute;inset:0;transition:transform .7s cubic-bezier(.23,1,.32,1);}
+.acard:hover .acard-bg{transform:scale(1.05);}
+.acard-overlay{position:absolute;inset:0;background:rgba(0,27,46,.7);transition:background .4s;}
+.acard:hover .acard-overlay{background:rgba(0,27,46,.4);}
+.acard-inner{position:absolute;inset:0;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;}
+.ac-top{display:flex;align-items:flex-start;justify-content:space-between;}
+.ac-num{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.15em;color:rgba(235,235,233,.25);}
+.ac-icon{width:42px;height:42px;border:1px solid rgba(235,235,233,.15);display:flex;align-items:center;justify-content:center;transition:border-color .3s,background .3s;}
+.acard:hover .ac-icon{border-color:var(--G);background:rgba(232,167,132,.1);}
+.ac-icon svg{width:20px;height:20px;stroke:var(--G);fill:none;stroke-width:1.5;}
+.ac-bot{}
+.ac-color{width:32px;height:3px;margin-bottom:1rem;border-radius:1px;}
+.ac-title{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;line-height:1.1;margin-bottom:.7rem;}
+.ac-desc{font-size:.68rem;line-height:1.7;color:rgba(235,235,233,.45);font-weight:300;transition:color .3s;}
+.acard:hover .ac-desc{color:rgba(235,235,233,.75);}
+.ac-hover-line{position:absolute;bottom:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.23,1,.32,1);}
+.acard:hover .ac-hover-line{transform:scaleX(1);}
+
+/* area colors */
+.acard:nth-child(1) .acard-bg{background:linear-gradient(135deg,#0a1520 0%,#1a3a55 100%);}
+.acard:nth-child(2) .acard-bg{background:linear-gradient(135deg,#1a0a08 0%,#4a1510 100%);}
+.acard:nth-child(3) .acard-bg{background:linear-gradient(135deg,#0d1a10 0%,#1a3520 100%);}
+.acard:nth-child(4) .acard-bg{background:linear-gradient(135deg,#1a1008 0%,#3a2510 100%);}
+.acard:nth-child(5) .acard-bg{background:linear-gradient(135deg,#100a1a 0%,#2a1040 100%);}
+.acard:nth-child(6) .acard-bg{background:linear-gradient(135deg,#0a1515 0%,#103020 100%);}
+
+.ac-color1{background:var(--T);}
+.ac-color2{background:var(--R);}
+.ac-color3{background:#2ea043;}
+.ac-color4{background:var(--G);}
+.ac-color5{background:#7c4dff;}
+.ac-color6{background:var(--C);}
+.ac-hl1{background:var(--T);}
+.ac-hl2{background:var(--R);}
+.ac-hl3{background:#2ea043;}
+.ac-hl4{background:var(--G);}
+.ac-hl5{background:#7c4dff;}
+.ac-hl6{background:var(--C);}
+
+/* ===== TERMINAL MEGA SECTION ===== */
+.terminal-mega{background:var(--black);padding:8rem 3rem;position:relative;overflow:hidden;}
+.tm-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.tm-left{}
+.tm-label{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--R);margin-bottom:2rem;display:flex;align-items:center;gap:.8rem;}
+.tm-label::before{content:'';width:20px;height:1px;background:var(--R);}
+.tm-head{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,7vw,6rem);line-height:.9;letter-spacing:.03em;margin-bottom:2rem;}
+.tm-head .stroke{-webkit-text-stroke:1.5px var(--R);color:transparent;}
+.tm-para{font-size:.82rem;line-height:1.9;color:rgba(235,235,233,.5);font-weight:300;margin-bottom:2rem;max-width:480px;}
+
+.steps{display:flex;flex-direction:column;gap:0;margin-top:2.5rem;}
+.step{display:flex;align-items:flex-start;gap:1.5rem;padding:1.2rem 0;border-top:1px solid rgba(222,192,173,.08);cursor:pointer;transition:padding-left .3s;}
+.step:last-child{border-bottom:1px solid rgba(222,192,173,.08);}
+.step:hover{padding-left:.5rem;}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:rgba(235,235,233,.12);min-width:40px;line-height:1;}
+.step-body{}
+.step-title{font-size:.85rem;font-weight:700;margin-bottom:.3rem;letter-spacing:.02em;}
+.step-desc{font-size:.7rem;color:rgba(235,235,233,.4);line-height:1.6;font-weight:300;}
+.step.active .step-num{color:var(--G);}
+.step.active .step-title{color:var(--G);}
+
+.tm-right{}
+.term-win{background:#080808;border:1px solid rgba(17,74,107,.4);border-radius:6px;overflow:hidden;box-shadow:0 0 0 1px rgba(232,167,132,.05),0 40px 100px rgba(0,0,0,.8);}
+.term-bar{background:#111;padding:.75rem 1rem;display:flex;align-items:center;gap:.5rem;}
+.td{width:10px;height:10px;border-radius:50%;}
+.td.r{background:#ff5f57;}
+.td.y{background:#ffbd2e;}
+.td.g{background:#28c840;}
+.ttitle{margin-left:auto;font-size:.65rem;color:rgba(235,235,233,.25);letter-spacing:.1em;}
+.term-body{padding:1.5rem;min-height:400px;font-size:.78rem;line-height:1.9;position:relative;}
+.tl{display:block;}
+.tp{color:var(--T);}
+.tc{color:var(--W);}
+.to{color:rgba(235,235,233,.4);}
+.tg{color:#56d364;}
+.tb{color:#79c0ff;}
+.tgl{color:var(--G);}
+.tr{color:#ff6b6b;}
+.tc2{color:var(--C);}
+.tcur{display:inline-block;width:8px;height:1.1em;background:var(--G);vertical-align:text-bottom;animation:bl 1s step-end infinite;}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:0}}
+
+/* progress bar in terminal */
+.tprogress{display:flex;align-items:center;gap:1rem;margin:.2rem 0;}
+.tbar-wrap{flex:1;background:rgba(255,255,255,.08);height:4px;border-radius:2px;overflow:hidden;}
+.tbar-fill{height:100%;background:var(--G);border-radius:2px;transition:width .3s;}
+.tpct{font-size:.65rem;color:var(--G);min-width:36px;text-align:right;}
+
+/* ===== EVENTS ===== */
+.events{background:var(--O);padding:8rem 3rem;}
+.events-top{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:5rem;align-items:end;}
+.ev-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);line-height:.9;letter-spacing:.05em;}
+.ev-h span{color:var(--R);}
+.ev-right{display:flex;flex-direction:column;gap:1rem;align-items:flex-end;}
+.ev-p{font-size:.8rem;color:rgba(235,235,233,.45);line-height:1.7;text-align:right;max-width:340px;}
+.ev-link{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--C);text-decoration:none;border-bottom:1px solid rgba(222,192,173,.3);padding-bottom:.2rem;transition:color .2s,border-color .2s;}
+.ev-link:hover{color:var(--G);border-color:var(--G);}
+
+.ev-list{display:flex;flex-direction:column;gap:0;}
+.eitem{display:grid;grid-template-columns:120px 60px 1fr auto;align-items:center;gap:2.5rem;padding:2rem 0;border-top:1px solid rgba(222,192,173,.08);position:relative;cursor:pointer;transition:background .3s;}
+.eitem:last-child{border-bottom:1px solid rgba(222,192,173,.08);}
+.eitem::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(17,74,107,.3);transition:width .4s cubic-bezier(.23,1,.32,1);z-index:0;}
+.eitem:hover::before{width:100%;}
+.eitem > *{position:relative;z-index:1;}
+.edate{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;line-height:1.2;color:rgba(235,235,233,.35);}
+.edate strong{display:block;font-size:2.2rem;color:var(--C);}
+.edot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.edot.seminar{background:var(--G);}
+.edot.workshop{background:var(--C);}
+.edot.hack{background:var(--R);}
+.edot.review{background:var(--T);}
+.emeta{}
+.etitle{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;margin-bottom:.4rem;line-height:1.2;}
+.etag{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.25rem .6rem;border-radius:2px;}
+.etag.seminar{background:rgba(232,167,132,.12);color:var(--G);border:1px solid rgba(232,167,132,.2);}
+.etag.workshop{background:rgba(222,192,173,.12);color:var(--C);border:1px solid rgba(222,192,173,.2);}
+.etag.hack{background:rgba(180,29,21,.15);color:var(--R);border:1px solid rgba(180,29,21,.3);}
+.etag.review{background:rgba(17,74,107,.25);color:#79c0ff;border:1px solid rgba(17,74,107,.4);}
+.earrow{font-size:1.2rem;color:rgba(235,235,233,.2);transition:color .3s,transform .3s;}
+.eitem:hover .earrow{color:var(--G);transform:translateX(6px);}
+
+/* ===== SPLIT CTA ===== */
+.split-cta{display:grid;grid-template-columns:1fr 1fr;min-height:50vh;}
+.sc-left{background:var(--R);padding:5rem 3rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.sc-left::before{content:'DOŁĄCZ';font-family:'Bebas Neue',sans-serif;font-size:14rem;color:rgba(0,0,0,.12);position:absolute;bottom:-3rem;left:-1rem;line-height:1;letter-spacing:-.05em;pointer-events:none;}
+.scl-label{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(235,235,233,.5);position:relative;z-index:1;}
+.scl-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,5rem);line-height:.9;letter-spacing:.03em;position:relative;z-index:1;}
+.scl-p{font-size:.8rem;line-height:1.8;color:rgba(235,235,233,.65);position:relative;z-index:1;max-width:340px;}
+.scl-btn{display:inline-flex;align-items:center;gap:.8rem;background:var(--W);color:var(--R);font-family:'IBM Plex Mono',monospace;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1rem 2rem;text-decoration:none;position:relative;z-index:1;transition:background .2s,transform .2s;}
+.scl-btn:hover{background:var(--C);transform:translateY(-2px);}
+.scl-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;}
+
+.sc-right{background:var(--C);padding:5rem 3rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.sc-right::before{content:'PWR';font-family:'Bebas Neue',sans-serif;font-size:14rem;color:rgba(0,27,46,.08);position:absolute;bottom:-3rem;right:-1rem;line-height:1;pointer-events:none;}
+.scr-label{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,27,46,.45);position:relative;z-index:1;}
+.scr-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,5rem);line-height:.9;letter-spacing:.03em;color:var(--O);position:relative;z-index:1;}
+.scr-p{font-size:.8rem;line-height:1.8;color:rgba(0,27,46,.55);position:relative;z-index:1;max-width:340px;}
+.contact-items{display:flex;flex-direction:column;gap:.8rem;position:relative;z-index:1;}
+.ci{display:flex;align-items:center;gap:.8rem;font-size:.75rem;color:var(--O);text-decoration:none;transition:color .2s;}
+.ci:hover{color:var(--R);}
+.ci svg{width:14px;height:14px;stroke:currentColor;fill:none;flex-shrink:0;}
+
+/* ===== TEAM ===== */
+.team{background:var(--black);padding:8rem 3rem;}
+.team-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,6rem);letter-spacing:.05em;line-height:.9;margin-bottom:1rem;}
+.team-sub{font-size:.75rem;color:rgba(235,235,233,.35);margin-bottom:4rem;letter-spacing:.05em;}
+.team-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
+.tcard{position:relative;overflow:hidden;cursor:pointer;border-right:1px solid rgba(235,235,233,.05);}
+.tcard:last-child{border-right:none;}
+.tcard-face{padding:2.5rem 1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--O);transition:background .4s;}
+.tcard:hover .tcard-face{background:var(--T);}
+.tavatar{width:72px;height:72px;border-radius:50%;border:2px solid rgba(232,167,132,.2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;color:var(--W);margin-bottom:1.2rem;transition:border-color .3s;background:rgba(17,74,107,.5);}
+.tcard:hover .tavatar{border-color:var(--G);}
+.trole{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--G);margin-bottom:.4rem;}
+.tname{font-size:.9rem;font-weight:700;margin-bottom:.4rem;line-height:1.2;}
+.tfield{font-size:.65rem;color:rgba(235,235,233,.35);line-height:1.4;}
+.tcard-hover-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--G);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.23,1,.32,1);}
+.tcard:hover .tcard-hover-bar{transform:scaleX(1);}
+
+/* ===== FOOTER ===== */
+footer{background:var(--O);border-top:1px solid rgba(222,192,173,.1);padding:4rem 3rem 2rem;}
+.foot-top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem;}
+.foot-brand .fl{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.1em;line-height:1;color:var(--W);}
+.foot-brand .fl span{color:var(--R);}
+.foot-brand .fs{font-size:.65rem;letter-spacing:.15em;color:rgba(235,235,233,.3);margin-top:.4rem;}
+.foot-brand .fp{font-size:.7rem;line-height:1.6;color:rgba(235,235,233,.35);margin-top:1rem;font-weight:300;}
+.foot-col h4{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--G);margin-bottom:1.2rem;}
+.foot-col a{display:block;font-size:.78rem;color:rgba(235,235,233,.4);text-decoration:none;margin-bottom:.6rem;transition:color .2s;font-weight:300;}
+.foot-col a:hover{color:var(--C);}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(222,192,173,.08);padding-top:2rem;}
+.fbc{font-size:.62rem;color:rgba(235,235,233,.25);letter-spacing:.08em;}
+.fbr{font-size:.62rem;color:rgba(235,235,233,.25);}
+.fbr strong{color:var(--C);}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(50px);transition:opacity .9s ease,transform .9s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+.rv2{opacity:0;transform:translateX(-30px);transition:opacity .9s ease,transform .9s ease;}
+.rv2.vis{opacity:1;transform:translateX(0);}
+
+/* SCANLINE overlay */
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.025) 2px,rgba(0,0,0,.025) 4px);pointer-events:none;z-index:1000;}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<nav>
+  <a href="index.html" class="nlogo">ESTYMATOR</a>
+  <ul class="nlinks">
+    <li><a href="studenci.html">Dla studentów</a></li>
+    <li><a href="firmy.html">Dla firm</a></li>
+    <li><a href="#join" class="ncta">Dołącz →</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <canvas id="bgCanvas"></canvas>
+  <div class="hero-copy">
+    <div class="kicker">SKN · W4 · PWr · od 2025</div>
+    <h1><span class="stroke">Estyma</span>tor</h1>
+    <p class="lead">Studenckie Koło Naukowe Machine Learning. Wydział Informatyki i Telekomunikacji Politechniki Wrocławskiej. Badamy, uczymy, budujemy.</p>
+    <div class="hero-actions">
+      <a href="studenci.html" class="btn primary">Dla studentów →</a>
+      <a href="firmy.html" class="btn ghost">Dla firm →</a>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <div class="panel red" data-bg="Członkowie">
+      <div class="p-label">Aktywnych członków</div>
+      <div class="p-title">47</div>
+      <p class="p-text">Studentów i doktorantów w kołach badawczych i projektowych.</p>
+    </div>
+    <div class="panel cream" data-bg="Projekty">
+      <div class="p-label">Projekty badawcze</div>
+      <div class="p-title">23</div>
+      <p class="p-text">W 2024/2025 roku pracujemy nad modelami, analizą danych i systemami AI.</p>
+    </div>
+  </div>
+  <div class="hero-bar">
+    <div class="hbar-item">
+      <div class="hbar-label">Wydział</div>
+      <div class="hbar-val" style="font-size:.9rem;font-family:'IBM Plex Mono';letter-spacing:.02em;">W4 · WIT</div>
+    </div>
+    <div class="hbar-item">
+      <div class="hbar-label">Założone</div>
+      <div class="hbar-val">2025</div>
+    </div>
+    <div class="hbar-item">
+      <div class="hbar-label">Publikacje</div>
+      <div class="hbar-val">08</div>
+    </div>
+    <div class="hbar-item">
+      <div class="hbar-label">Dołącz teraz</div>
+      <div class="hbar-val" style="font-size:.85rem;font-family:'IBM Plex Mono';">→ W4 B314</div>
+    </div>
+  </div>
+</section>
+
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div style="display:flex;gap:3rem;animation:tick 22s linear infinite;white-space:nowrap;">
+    <span class="titem"><span class="tdot"></span>Machine Learning</span>
+    <span class="titem"><span class="tdot"></span>Deep Learning</span>
+    <span class="titem"><span class="tdot"></span>Natural Language Processing</span>
+    <span class="titem"><span class="tdot"></span>Computer Vision</span>
+    <span class="titem"><span class="tdot"></span>Reinforcement Learning</span>
+    <span class="titem"><span class="tdot"></span>Generative AI</span>
+    <span class="titem"><span class="tdot"></span>Transformers</span>
+    <span class="titem"><span class="tdot"></span>Diffusion Models</span>
+    <span class="titem"><span class="tdot"></span>Bayesian Inference</span>
+    <span class="titem"><span class="tdot"></span>Graph Neural Networks</span>
+    <span class="titem"><span class="tdot"></span>MLOps · Deployment</span>
+    <span class="titem"><span class="tdot"></span>Machine Learning</span>
+    <span class="titem"><span class="tdot"></span>Deep Learning</span>
+    <span class="titem"><span class="tdot"></span>Natural Language Processing</span>
+    <span class="titem"><span class="tdot"></span>Computer Vision</span>
+    <span class="titem"><span class="tdot"></span>Reinforcement Learning</span>
+    <span class="titem"><span class="tdot"></span>Generative AI</span>
+    <span class="titem"><span class="tdot"></span>Transformers</span>
+    <span class="titem"><span class="tdot"></span>Diffusion Models</span>
+    <span class="titem"><span class="tdot"></span>Bayesian Inference</span>
+    <span class="titem"><span class="tdot"></span>Graph Neural Networks</span>
+    <span class="titem"><span class="tdot"></span>MLOps · Deployment</span>
+  </div>
+</div>
+
+<!-- ===== MANIFESTO ===== -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-bg">ML</div>
+  <div class="manifesto-inner">
+    <div class="m-sidebar rv2">
+      <div class="m-label">Statystyki</div>
+      <div class="m-stat">
+        <div class="m-num r" id="s1">0</div>
+        <div class="m-slab">Aktywnych członków</div>
+      </div>
+      <div class="m-divider"></div>
+      <div class="m-stat">
+        <div class="m-num c" id="s2">0</div>
+        <div class="m-slab">Projektów 2024/25</div>
+      </div>
+      <div class="m-divider"></div>
+      <div class="m-stat">
+        <div class="m-num g" id="s3">0</div>
+        <div class="m-slab">Seminariów rocznie</div>
+      </div>
+      <div class="m-divider"></div>
+      <div class="m-pwr">Wydział Informatyki<br>i Telekomunikacji<br><strong>Politechnika Wrocławska</strong></div>
+    </div>
+    <div class="m-body rv">
+      <blockquote class="m-quote">Nie uczymy tylko <em>jak</em> działa AI — uczymy <strong>dlaczego</strong> i co z tym zrobić.</blockquote>
+      <p class="m-para">Jesteśmy studenckim kołem naukowym, w którego skład wchodzą studenci i doktoranci Wydziału Informatyki i Telekomunikacji Politechniki Wrocławskiej. Naszym celem jest poszerzanie wiedzy i śledzenie nowych trendów w dziedzinie uczenia maszynowego.</p>
+      <p class="m-para">Od seminariów przez projekty badawcze po hackathony — tworzymy środowisko, gdzie nauka idzie w parze z praktyką. Każdy znajdzie tu swoje miejsce, niezależnie od poziomu doświadczenia.</p>
+      <div class="m-chips">
+        <span class="mchip">PyTorch</span>
+        <span class="mchip">TensorFlow</span>
+        <span class="mchip">HuggingFace</span>
+        <span class="mchip">scikit-learn</span>
+        <span class="mchip">JAX</span>
+        <span class="mchip">wandb</span>
+        <span class="mchip">CUDA</span>
+        <span class="mchip">Docker</span>
+        <span class="mchip">Kubernetes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AREAS ===== -->
+<section class="areas" id="areas">
+  <div class="areas-header rv">
+    <h2 class="areas-h">Obszary<br><span>badań</span></h2>
+    <div class="areas-count">06</div>
+  </div>
+  <div class="areas-grid">
+    <div class="acard">
+      <div class="acard-bg"></div>
+      <div class="acard-overlay"></div>
+      <div class="acard-inner">
+        <div class="ac-top"><div class="ac-num">01</div><div class="ac-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div></div>
+        <div class="ac-bot">
+          <div class="ac-color ac-color1"></div>
+          <h3 class="ac-title">Computer Vision</h3>
+          <p class="ac-desc">Rozpoznawanie obrazów, detekcja obiektów, segmentacja semantyczna i instancyjna. CNN, ViT, DETR.</p>
+        </div>
+      </div>
+      <div class="ac-hover-line ac-hl1"></div>
+    </div>
+    <div class="acard">
+      <div class="acard-bg"></div>
+      <div class="acard-overlay"></div>
+      <div class="acard-inner">
+        <div class="ac-top"><div class="ac-num">02</div><div class="ac-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div></div>
+        <div class="ac-bot">
+          <div class="ac-color ac-color2"></div>
+          <h3 class="ac-title">NLP & LLMs</h3>
+          <p class="ac-desc">Transformery, fine-tuning, RAG, embeddingi, analiza sentymentu. GPT, BERT, LLaMA.</p>
+        </div>
+      </div>
+      <div class="ac-hover-line ac-hl2"></div>
+    </div>
+    <div class="acard">
+      <div class="acard-bg"></div>
+      <div class="acard-overlay"></div>
+      <div class="acard-inner">
+        <div class="ac-top"><div class="ac-num">03</div><div class="ac-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div></div>
+        <div class="ac-bot">
+          <div class="ac-color ac-color3"></div>
+          <h3 class="ac-title">Reinforcement Learning</h3>
+          <p class="ac-desc">Uczenie ze wzmocnieniem, PPO, SAC, środowiska symulacyjne, RLHF, AlphaGo.</p>
+        </div>
+      </div>
+      <div class="ac-hover-line ac-hl3"></div>
+    </div>
+    <div class="acard">
+      <div class="acard-bg"></div>
+      <div class="acard-overlay"></div>
+      <div class="acard-inner">
+        <div class="ac-top"><div class="ac-num">04</div><div class="ac-icon"><svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l3 3"/></svg></div></div>
+        <div class="ac-bot">
+          <div class="ac-color ac-color4"></div>
+          <h3 class="ac-title">Generative AI</h3>
+          <p class="ac-desc">Modele dyfuzyjne, GAN, VAE, generowanie obrazów, muzyki i kodu. Stable Diffusion, DALL·E.</p>
+        </div>
+      </div>
+      <div class="ac-hover-line ac-hl4"></div>
+    </div>
+    <div class="acard">
+      <div class="acard-bg"></div>
+      <div class="acard-overlay"></div>
+      <div class="acard-inner">
+        <div class="ac-top"><div class="ac-num">05</div><div class="ac-icon"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51L8.59 10.49"/></svg></div></div>
+        <div class="ac-bot">
+          <div class="ac-color ac-color5"></div>
+          <h3 class="ac-title">Graph Neural Networks</h3>
+          <p class="ac-desc">GCN, GAT, GraphSAGE. Zastosowania w bioinformatyce, systemach rekomendacji, wiedzy grafowej.</p>
+        </div>
+      </div>
+      <div class="ac-hover-line ac-hl5"></div>
+    </div>
+    <div class="acard">
+      <div class="acard-bg"></div>
+      <div class="acard-overlay"></div>
+      <div class="acard-inner">
+        <div class="ac-top"><div class="ac-num">06</div><div class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div></div>
+        <div class="ac-bot">
+          <div class="ac-color ac-color6"></div>
+          <h3 class="ac-title">MLOps & Inference</h3>
+          <p class="ac-desc">Wdrażanie modeli, monitoring, automatyzacja pipeline'ów ML. Docker, K8s, ONNX, TensorRT.</p>
+        </div>
+      </div>
+      <div class="ac-hover-line ac-hl6"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TERMINAL / JOIN ===== -->
+<section class="terminal-mega" id="join">
+  <div class="tm-grid">
+    <div class="tm-left rv2">
+      <div class="tm-label">Jak dołączyć</div>
+      <h2 class="tm-head"><span class="stroke">Trenuj</span><br>z najlepszymi</h2>
+      <p class="tm-para">Rekrutacja jest otwarta przez cały rok akademicki. Wystarczy pojawić się na naszym spotkaniu lub napisać maila. Zero barier wejścia — liczy się ciekawość.</p>
+      <div class="steps">
+        <div class="step active" id="step0">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Napisz do nas</div>
+            <div class="step-desc">Wyślij maila lub napisz na Facebooku. Odpowiadamy w 24h.</div>
+          </div>
+        </div>
+        <div class="step" id="step1">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">Przyjdź na spotkanie</div>
+            <div class="step-desc">Spotkania co dwa tygodnie, sala B314, bud. C-16.</div>
+          </div>
+        </div>
+        <div class="step" id="step2">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">Wybierz projekt</div>
+            <div class="step-desc">Dołącz do istniejącego projektu lub zaproponuj własny temat badawczy.</div>
+          </div>
+        </div>
+        <div class="step" id="step3">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Buduj i publikuj</div>
+            <div class="step-desc">Uczestniczymy w konferencjach, hackathonach i publikujemy wyniki.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tm-right rv">
+      <div class="term-win">
+        <div class="term-bar">
+          <span class="td r"></span><span class="td y"></span><span class="td g"></span>
+          <span class="ttitle">estymator@pwr — python</span>
+        </div>
+        <div class="term-body" id="termBody"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EVENTS ===== -->
+<section class="events" id="events">
+  <div class="events-top rv">
+    <h2 class="ev-h">Nadchodzące<br><span>wydarzenia</span></h2>
+    <div class="ev-right">
+      <p class="ev-p">Organizujemy seminaria, warsztaty i hackathony przez cały rok akademicki. Każde spotkanie to szansa na naukę i networking.</p>
+      <a href="#" class="ev-link">Pełny kalendarz →</a>
+    </div>
+  </div>
+  <div class="ev-list rv">
+    <div class="eitem">
+      <div class="edate"><strong>12</strong>CZE<br>2025</div>
+      <div class="edot seminar"></div>
+      <div class="emeta">
+        <div class="etitle">Diffusion Models od teorii do praktyki</div>
+        <span class="etag seminar">Seminarium</span>
+      </div>
+      <div class="earrow">→</div>
+    </div>
+    <div class="eitem">
+      <div class="edate"><strong>19</strong>CZE<br>2025</div>
+      <div class="edot workshop"></div>
+      <div class="emeta">
+        <div class="etitle">Warsztat: Fine-tuning LLM z LoRA</div>
+        <span class="etag workshop">Warsztat</span>
+      </div>
+      <div class="earrow">→</div>
+    </div>
+    <div class="eitem">
+      <div class="edate"><strong>28</strong>CZE<br>2025</div>
+      <div class="edot hack"></div>
+      <div class="emeta">
+        <div class="etitle">Wrocław AI Hackathon — edycja letnia</div>
+        <span class="etag hack">Hackathon</span>
+      </div>
+      <div class="earrow">→</div>
+    </div>
+    <div class="eitem">
+      <div class="edate"><strong>10</strong>LIP<br>2025</div>
+      <div class="edot review"></div>
+      <div class="emeta">
+        <div class="etitle">Paper Review: ICML 2025 highlights</div>
+        <span class="etag review">Paper Review</span>
+      </div>
+      <div class="earrow">→</div>
+    </div>
+    <div class="eitem">
+      <div class="edate"><strong>24</strong>LIP<br>2025</div>
+      <div class="edot workshop"></div>
+      <div class="emeta">
+        <div class="etitle">Intro to Reinforcement Learning — seria</div>
+        <span class="etag workshop">Warsztat</span>
+      </div>
+      <div class="earrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT CTA -->
+<div class="split-cta">
+  <div class="sc-left">
+    <div class="scl-label">Dołącz do koła</div>
+    <h2 class="scl-h">Zostań<br>częścią<br>przyszłości</h2>
+    <p class="scl-p">Otwieramy się na wszystkich studentów WIT PWr. Nie wymagamy doświadczenia — tylko zapał do nauki i odrobiny matematyki.</p>
+    <a href="mailto:estymator@pwr.edu.pl" class="scl-btn">
+      <svg viewBox="0 0 24 24"><path d="M22 6L12 13 2 6M2 6h20v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Napisz do nas
+    </a>
+  </div>
+  <div class="sc-right">
+    <div class="scr-label">Kontakt i lokalizacja</div>
+    <h2 class="scr-h" style="color:var(--O)">Znajdź<br>nas<br>tutaj</h2>
+    <p class="scr-p">Wydział Informatyki i Telekomunikacji, sala B314, budynek C-16. Spotkania co dwa tygodnie w czwartek o 18:00.</p>
+    <div class="contact-items">
+      <a href="mailto:estymator@pwr.edu.pl" class="ci" style="color:var(--O);">
+        <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M22 6L12 13 2 6M2 6h20v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        estymator@pwr.edu.pl
+      </a>
+      <a href="#" class="ci" style="color:var(--O);">
+        <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Bud. C-16, sala B314, PWr
+      </a>
+      <a href="#" class="ci" style="color:var(--O);">
+        <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        github.com/estymator-pwr
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TEAM ===== -->
+<section class="team" id="team">
+  <div class="rv">
+    <h2 class="team-h">Nasz zespół</h2>
+    <p class="team-sub">// Studenci i doktoranci WIT Politechniki Wrocławskiej</p>
+  </div>
+  <div class="team-grid rv">
+    <div class="tcard">
+      <div class="tcard-face">
+        <div class="tavatar">AK</div>
+        <div class="trole">Przewodniczący</div>
+        <div class="tname">Adam Kowalski</div>
+        <div class="tfield">Deep Learning · NLP</div>
+      </div>
+      <div class="tcard-hover-bar"></div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-face">
+        <div class="tavatar">MN</div>
+        <div class="trole">V-ce Przewodnicząca</div>
+        <div class="tname">Marta Nowak</div>
+        <div class="tfield">Computer Vision · GANs</div>
+      </div>
+      <div class="tcard-hover-bar"></div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-face">
+        <div class="tavatar">PW</div>
+        <div class="trole">Sekretarz</div>
+        <div class="tname">Piotr Wiśniewski</div>
+        <div class="tfield">Reinforcement Learning</div>
+      </div>
+      <div class="tcard-hover-bar"></div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-face">
+        <div class="tavatar">KZ</div>
+        <div class="trole">Doktorantka</div>
+        <div class="tname">Katarzyna Zając</div>
+        <div class="tfield">Generative Models · VAE</div>
+      </div>
+      <div class="tcard-hover-bar"></div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-face">
+        <div class="tavatar">JB</div>
+        <div class="trole">Opiekun naukowy</div>
+        <div class="tname">dr Jan Bąk</div>
+        <div class="tfield">ML Theory · Optimization</div>
+      </div>
+      <div class="tcard-hover-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <div class="fl">EST<span>.</span></div>
+      <div class="fs">Studenckie Koło Naukowe ML/AI</div>
+      <p class="fp">Wydział Informatyki i Telekomunikacji<br>Politechnika Wrocławska<br>© 2025 Estymator</p>
+    </div>
+    <div class="foot-col">
+      <h4>Nawigacja</h4>
+      <a href="studenci.html">Dla studentów</a>
+      <a href="firmy.html">Dla firm</a>
+      <a href="#join">Dołącz</a>
+    </div>
+    <div class="foot-col">
+      <h4>Zasoby</h4>
+      <a href="#">GitHub</a>
+      <a href="#">Notion (wiki)</a>
+      <a href="#">Nagrania seminariów</a>
+      <a href="#">Projekty badawcze</a>
+      <a href="#">Blog techniczny</a>
+    </div>
+    <div class="foot-col">
+      <h4>Kontakt</h4>
+      <a href="mailto:estymator@pwr.edu.pl">estymator@pwr.edu.pl</a>
+      <a href="#">Facebook</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span class="fbc">Built with ♥ &amp; PyTorch · Wrocław 2025</span>
+    <span class="fbr">Wydział Informatyki i Telekomunikacji · <strong>Politechnika Wrocławska</strong></span>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cur = document.getElementById('cur');
+const cur2 = document.getElementById('cur2');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function animC(){
+  rx+=(mx-rx)*.11;ry+=(my-ry)*.11;
+  cur2.style.left=rx+'px';cur2.style.top=ry+'px';
+  requestAnimationFrame(animC);
+})();
+document.querySelectorAll('a,button,.acard,.tcard,.eitem,.step').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+// BG CANVAS — noise field with color palette
+const canvas=document.getElementById('bgCanvas');
+const ctx=canvas.getContext('2d');
+function resizeCvs(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resizeCvs();window.addEventListener('resize',resizeCvs);
+
+const colors=['rgba(0,27,46,','rgba(17,74,107,','rgba(180,29,21,','rgba(222,192,173,','rgba(232,167,132,'];
+const pts=[];
+for(let i=0;i<90;i++) pts.push({
+  x:Math.random()*window.innerWidth,
+  y:Math.random()*window.innerHeight,
+  vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,
+  r:Math.random()*3+1,
+  ci:Math.floor(Math.random()*colors.length)
+});
+let hmx=window.innerWidth/2,hmy=window.innerHeight/2;
+document.addEventListener('mousemove',e=>{hmx=e.clientX;hmy=e.clientY;});
+function drawBg(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;
+    const dx=hmx-p.x,dy=hmy-p.y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<100){p.x-=dx*.004;p.y-=dy*.004;}
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=colors[p.ci]+'0.6)';ctx.fill();
+  });
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<140){
+      ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+      ctx.strokeStyle=`rgba(17,74,107,${.3*(1-d/140)})`;
+      ctx.lineWidth=.5;ctx.stroke();
+    }
+  }
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+// COUNTER
+function animN(el,t,sfx=''){
+  let n=0,step=t/50;
+  const iv=setInterval(()=>{n+=step;if(n>=t){n=t;clearInterval(iv);}
+    el.textContent=Math.floor(n)+sfx;},20);
+}
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      const id=e.target.closest('section')?.id;
+      if(id==='manifesto'){
+        setTimeout(()=>{
+          animN(document.getElementById('s1'),47,'+');
+          animN(document.getElementById('s2'),23,'');
+          animN(document.getElementById('s3'),38,'');
+        },200);
+      }
+    }
+  });
+},{threshold:.1});
+document.querySelectorAll('.rv,.rv2').forEach(el=>obs.observe(el));
+
+// TERMINAL
+const termData=[
+  {d:200,h:'<span class="tp">estymator@pwr</span>:<span class="tgl">~</span>$ <span class="tc">python train.py --model=llm --dataset=corpus_pl</span>'},
+  {d:700,h:'<span class="to">⚙  Loading tokenizer... </span><span class="tg">✓ vocab: 64,000</span>'},
+  {d:1100,h:'<span class="to">⚙  Dataset: </span><span class="tb">3.2M samples (Polish NLP)</span>'},
+  {d:1500,h:'<span class="to">⚙  Model: </span><span class="tgl">LLaMA-7B-PL (7.2B params)</span>'},
+  {d:1900,h:'<span class="to">⚙  Hardware: </span><span class="tb">4× RTX 4090 (CUDA 12.3)</span>'},
+  {d:2300,h:''},
+  {d:2400,h:'<span class="tc2">Training started ────────────────</span>'},
+  {d:2700,h:'<span class="to">Epoch 1/5  step 100/500</span>'},
+  {d:2750,h:'<span class="tprogress"><span style="font-size:.65rem;color:rgba(235,235,233,.4)">loss</span><span class="tbar-wrap"><span class="tbar-fill" id="bar1" style="width:0%"></span></span><span class="tpct" id="pct1">2.847</span></span>'},
+  {d:3100,h:'<span class="to">Epoch 2/5  </span><span class="tg">↓ 41% improvement</span>'},
+  {d:3450,h:'<span class="to">Epoch 3/5  </span><span class="tg">loss: 1.203</span>'},
+  {d:3800,h:'<span class="to">Epoch 4/5  </span><span class="tg">loss: 0.891  ✓ val_loss stable</span>'},
+  {d:4200,h:'<span class="to">Epoch 5/5  </span><span class="tg">loss: 0.634  ← best!</span>'},
+  {d:4600,h:''},
+  {d:4700,h:'<span class="tg">✓ Training complete! Saving checkpoint...</span>'},
+  {d:5000,h:'<span class="to">  → llama_pl_v2.pt (14.2 GB)</span>'},
+  {d:5300,h:'<span class="to">  → uploading to HuggingFace Hub...</span>'},
+  {d:5700,h:'<span class="tg">✓ Published: estymator/llama-7b-pl-v2</span>'},
+  {d:6100,h:''},
+  {d:6200,h:'<span class="tp">estymator@pwr</span>:<span class="tgl">~</span>$ <span class="tc">./join_estymator.sh</span>'},
+  {d:6600,h:'<span class="tg">✓ Witaj w Estymatorze 🎉  W8 · PWr · B314</span>'},
+];
+const tb=document.getElementById('termBody');
+function runTerm(){
+  tb.innerHTML='';
+  termData.forEach(({d,h})=>{
+    setTimeout(()=>{
+      const s=document.createElement('span');
+      s.className='tl';s.innerHTML=(h||'&nbsp;')+'<br>';
+      tb.appendChild(s);tb.scrollTop=tb.scrollHeight;
+      if(s.querySelector('#bar1')){
+        setTimeout(()=>{document.getElementById('bar1').style.width='55%';},100);
+      }
+    },d);
+  });
+  setTimeout(runTerm,8000);
+}
+runTerm();
+
+// STEP CYCLER
+let si=0;
+const steps=document.querySelectorAll('.step');
+setInterval(()=>{
+  steps.forEach(s=>s.classList.remove('active'));
+  si=(si+1)%steps.length;
+  steps[si].classList.add('active');
+},2000);
+</script>
+</body>
+</html>
