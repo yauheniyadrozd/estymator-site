@@ -209,7 +209,7 @@
     h += '<div class="panel-card">';
     h += '<div class="form-group"><label>Tytuł</label><input type="text" id="efTitle" value="' + escAttr(p ? p.title : '') + '" placeholder="Tytuł posta"></div>';
     h += '<div class="form-group"><label>Krótki opis (excerpt)</label><textarea id="efExcerpt" rows="2" placeholder="Krótkie streszczenie widoczne na liście postów">' + esc(p ? p.excerpt || '' : '') + '</textarea></div>';
-    h += '<div class="form-group"><label>Treść (HTML)</label><textarea id="efContent" rows="12" placeholder="Pełna treść posta. Możesz używać HTML: <p>, <strong>, <em>, <a href=''>, <ul>, <li> itp.">' + esc(p ? p.content || '' : '') + '</textarea></div>';
+    h += '<div class="form-group"><label>Treść (HTML)</label><textarea id="efContent" rows="12" placeholder="Pełna treść posta. Możesz używać HTML: <p>, <strong>, <em>, <a href=\'\'>, <ul>, <li> itp.">' + esc(p ? p.content || '' : '') + '</textarea></div>';
 
     h += '<div class="form-row">';
     h += '<div class="form-group"><label>Kategoria</label><select id="efCategory">';
