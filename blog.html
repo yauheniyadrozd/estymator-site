@@ -12,9 +12,16 @@
 /* blog-page hero */
 .blog-hero {
   background: var(--black);
-  padding: 8rem 3rem 4rem;
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(5rem, 10vw, 10rem) 3rem;
   text-align: center;
   border-bottom: 1px solid rgba(222,192,173,.08);
+  position: relative;
+  overflow: hidden;
 }
 .blog-hero .section-label { font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:var(--G); margin-bottom:1rem; }
 .blog-hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(3.5rem,8vw,7rem); line-height:.9; letter-spacing:.04em; }
@@ -46,9 +53,9 @@
 .blog-empty-page svg { width:80px; height:80px; stroke:rgba(235,235,233,.1); margin-bottom:1rem; }
 .blog-empty-page p { font-size:.85rem; }
 
-@media(max-width:1024px){ .blog-area .blog-grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:1024px){ .blog-hero{min-height:45vh} .blog-area .blog-grid{grid-template-columns:repeat(2,1fr)} }
 @media(max-width:600px){
-  .blog-hero{padding:6rem 1.4rem 3rem}
+  .blog-hero{min-height:40vh;padding:4rem 1.4rem}
   .blog-area{padding:2rem 1.4rem}
   .blog-area .blog-grid{grid-template-columns:1fr}
 }
@@ -78,6 +85,8 @@
   <h1>Blog <span>koła</span></h1>
   <p>Relacje z wydarzeń, wyniki badań, ogłoszenia i artykuły pisane przez członków Estymatora.</p>
 </section>
+
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
 
 <!-- FILTERS -->
 <div class="blog-filters" id="blogFilters">
