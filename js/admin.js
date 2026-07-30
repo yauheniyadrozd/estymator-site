@@ -26,6 +26,7 @@
   let currentTags = [];
   let currentFiles = [];
   let currentImage = null;
+  let _newImagePending = false;
 
   /* ── AUTH ────────────────────────────────────────── */
   function getStoredPass() { return localStorage.getItem(PASS_KEY); }
@@ -217,7 +218,8 @@
     // Reset state
     currentTags = p ? (p.tags || []).slice() : [];
     currentFiles = p ? (p.files || []).slice() : [];
-    currentImage = p ? p.image || null : null;
+    currentImage = _newImagePending ? currentImage : (p ? p.image || null : null);
+    _newImagePending = false;
     editingPostId = isEdit ? p.id : null;
 
     h += '<div class="panel-card">';
@@ -380,6 +382,7 @@
     var reader = new FileReader();
     reader.onload = function () {
       currentImage = reader.result;
+      _newImagePending = true;
       renderPage(editingPostId ? 'edit-post' : 'new-post');
     };
     reader.readAsDataURL(file);
