@@ -31,14 +31,14 @@
     let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
-      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-    });
+      cur.style.transform = 'translate(' + (mx - 8) + 'px,' + (my - 8) + 'px)';
+    }, { passive: true });
     (function animC() {
-      rx += (mx - rx) * .11; ry += (my - ry) * .11;
-      cur2.style.left = rx + 'px'; cur2.style.top = ry + 'px';
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      cur2.style.transform = 'translate(' + (rx - 22) + 'px,' + (ry - 22) + 'px)';
       requestAnimationFrame(animC);
     })();
-    document.querySelectorAll('a,button,.acard,.tcard,.eitem,.step,.step-box,.card').forEach(el => {
+    document.querySelectorAll('a,button,.acard,.tcard,.eitem,.step,.step-box,.card,.blog-card').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
     });
@@ -106,7 +106,18 @@
   /* ── SCROLL REVEAL ──────────────────────────────── */
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-  }, { threshold: .1 });
-  document.querySelectorAll('.rv, .rv2').forEach(el => obs.observe(el));
+  }, { threshold: .12, rootMargin: '0px 0px -30px 0px' });
+
+  function observeRv() {
+    document.querySelectorAll('.rv:not(.vis), .rv2:not(.vis)').forEach(el => obs.observe(el));
+    document.querySelectorAll('.rv-stagger > *').forEach(el => {
+      if (!el.classList.contains('rv') && !el.classList.contains('rv2')) {
+        el.classList.add('rv');
+        obs.observe(el);
+      }
+    });
+  }
+  observeRv();
+  window._estObserveRv = observeRv;
 
 })();

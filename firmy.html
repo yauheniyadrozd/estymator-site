@@ -20,15 +20,16 @@
 <div id="cur"></div>
 <div id="cur2"></div>
 
-<nav>
-  <a href="index.html" class="nlogo">ESTYMATOR</a>
+<nav role="navigation" aria-label="Główna nawigacja">
+  <a href="index.html" class="nlogo" aria-label="Estymator — strona główna">ESTYMATOR</a>
   <button class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
   <ul class="nlinks">
     <li><a href="studenci.html">Dla studentów</a></li>
     <li><a href="firmy.html" class="active">Dla firm</a></li>
-    <li><a href="index.html#join" class="ncta">Dołącz →</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#kontakt" class="ncta">Kontakt →</a></li>
   </ul>
 </nav>
 
@@ -67,7 +68,7 @@
     </div>
     <p class="section-desc">Każda współpraca jest dopasowywana do problemu firmy, dostępności danych i oczekiwanego efektu.</p>
   </div>
-  <div class="grid3 rv">
+  <div class="grid3 rv-stagger">
     <div class="card">
       <div class="card-type">Projekt</div>
       <h3>Projekt badawczo-wdrożeniowy</h3>
@@ -130,7 +131,7 @@
     </div>
     <p class="section-desc">Krótka ścieżka od pierwszej wiadomości do projektu, wydarzenia albo współpracy semestralnej.</p>
   </div>
-  <div class="steps-grid rv">
+  <div class="steps-grid rv-stagger">
     <div class="step-box">
       <div class="step-num">01</div>
       <div class="step-title">Opis tematu</div>
@@ -162,7 +163,7 @@
     </div>
     <p class="section-desc">Najlepiej sprawdzają się tematy z jasnym problemem, danymi i możliwością przygotowania prototypu.</p>
   </div>
-  <div class="grid3 rv">
+  <div class="grid3 rv-stagger">
     <div class="card">
       <div class="card-type">NLP</div>
       <h3>LLM, RAG, analiza tekstu</h3>
@@ -179,6 +180,17 @@
       <p>Pipeline danych, automatyzacja eksperymentów, API dla modelu, Docker, monitoring jakości predykcji.</p>
     </div>
   </div>
+</section>
+
+<section class="blog-section" id="blog">
+  <div class="section-head rv">
+    <div>
+      <div class="section-label">Aktualności</div>
+      <h2 class="section-title">Blog <span>koła</span></h2>
+    </div>
+    <p class="section-desc">Najnowsze informacje o współpracy, projektach i wydarzeniach dla firm.</p>
+  </div>
+  <div class="blog-grid rv-stagger" data-blog data-blog-limit="3"></div>
 </section>
 
 <section class="split" id="kontakt">
@@ -202,13 +214,37 @@
   </div>
 </section>
 
-<footer class="foot">
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <div class="fl">EST<span>.</span></div>
+      <div class="fs">Studenckie Koło Naukowe ML/AI</div>
+      <p class="fp">Wydział Informatyki i Telekomunikacji<br>Politechnika Wrocławska<br>© 2025 Estymator</p>
+    </div>
+    <div class="foot-col">
+      <h4>Nawigacja</h4>
+      <a href="studenci.html">Dla studentów</a>
+      <a href="firmy.html">Dla firm</a>
+      <a href="index.html#join">Dołącz</a>
+    </div>
+    <div class="foot-col">
+      <h4>Zasoby</h4>
+      <a href="#">GitHub</a><a href="#">Notion (wiki)</a>
+      <a href="#">Nagrania seminariów</a><a href="#">Blog techniczny</a>
+    </div>
+    <div class="foot-col">
+      <h4>Kontakt</h4>
+      <a href="mailto:estymator@pwr.edu.pl">estymator@pwr.edu.pl</a>
+      <a href="#">Facebook</a><a href="#">LinkedIn</a><a href="#">Instagram</a>
+    </div>
+  </div>
   <div class="foot-bottom">
-    <span class="fbc">Estymator · podstrona dla firm · Wrocław 2025</span>
+    <span class="fbc">Built with ♥ &amp; PyTorch · Wrocław 2025</span>
     <span class="fbr">Wydział Informatyki i Telekomunikacji · <strong>Politechnika Wrocławska</strong></span>
   </div>
 </footer>
 
 <script src="shared.js"></script>
+<script src="js/posts-loader.js"></script>
 </body>
 </html>

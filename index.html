@@ -33,6 +33,8 @@
 .hbar-item:last-child { border-right:none; background:var(--G); color:var(--O); }
 .hbar-label { font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; opacity:.5; }
 .hbar-val { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:.1em; }
+.hbar-mono { font-family:'IBM Plex Mono',monospace; font-size:.9rem; letter-spacing:.02em; }
+.hbar-item:last-child .hbar-mono { font-size:.85rem; }
 .hbar-item:last-child .hbar-label { color:var(--O); opacity:.6; }
 .hbar-item:last-child .hbar-val   { color:var(--O); }
 
@@ -108,6 +110,8 @@
 .acard:hover .ac-desc { color:rgba(235,235,233,.75); }
 .ac-hover-line { position:absolute; bottom:0; left:0; right:0; height:3px; transform:scaleX(0); transform-origin:left; transition:transform .5s cubic-bezier(.23,1,.32,1); }
 .acard:hover .ac-hover-line { transform:scaleX(1); }
+
+/* acard backgrounds per position */
 .acard:nth-child(1) .acard-bg{background:linear-gradient(135deg,#0a1520 0%,#1a3a55 100%)}
 .acard:nth-child(2) .acard-bg{background:linear-gradient(135deg,#1a0a08 0%,#4a1510 100%)}
 .acard:nth-child(3) .acard-bg{background:linear-gradient(135deg,#0d1a10 0%,#1a3520 100%)}
@@ -227,21 +231,6 @@
 .tcard-hover-bar { position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--G); transform:scaleX(0); transform-origin:left; transition:transform .4s cubic-bezier(.23,1,.32,1); }
 .tcard:hover .tcard-hover-bar { transform:scaleX(1); }
 
-/* FOOTER */
-footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding:4rem 3rem 2rem; }
-.foot-top { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:3rem; margin-bottom:4rem; }
-.foot-brand .fl { font-family:'Bebas Neue',sans-serif; font-size:3rem; letter-spacing:.1em; line-height:1; color:var(--W); }
-.foot-brand .fl span { color:var(--R); }
-.foot-brand .fs { font-size:.65rem; letter-spacing:.15em; color:rgba(235,235,233,.3); margin-top:.4rem; }
-.foot-brand .fp { font-size:.7rem; line-height:1.6; color:rgba(235,235,233,.35); margin-top:1rem; font-weight:300; }
-.foot-col h4 { font-size:.58rem; letter-spacing:.25em; text-transform:uppercase; color:var(--G); margin-bottom:1.2rem; }
-.foot-col a { display:block; font-size:.78rem; color:rgba(235,235,233,.4); text-decoration:none; margin-bottom:.6rem; transition:color .2s; font-weight:300; }
-.foot-col a:hover { color:var(--C); }
-.foot-bottom { display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(222,192,173,.08); padding-top:2rem; }
-.fbc { font-size:.62rem; color:rgba(235,235,233,.25); letter-spacing:.08em; }
-.fbr { font-size:.62rem; color:rgba(235,235,233,.25); }
-.fbr strong { color:var(--C); }
-
 /* ── INDEX RESPONSIVE ─────────────────────────────── */
 @media (max-width: 1024px) {
   .manifesto-inner { grid-template-columns: 1fr; gap: 3rem; }
@@ -249,7 +238,6 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
   .acard:nth-child(3n) { border-right: 1px solid rgba(235,235,233,.06); }
   .acard:nth-child(2n) { border-right: none; }
   .team-grid { grid-template-columns: repeat(3,1fr); }
-  .foot-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
   .tm-grid { grid-template-columns: 1fr; gap: 3rem; }
   .events-top { grid-template-columns: 1fr; gap: 2rem; }
   .ev-right { align-items: flex-start; }
@@ -300,11 +288,6 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
   .team { padding: 4rem 1.4rem; }
   .team-grid { grid-template-columns: repeat(2,1fr); gap: 1px; }
   .tcard { border-right: none; border-bottom: 1px solid rgba(235,235,233,.05); }
-
-  /* Footer */
-  footer { padding: 3rem 1.4rem 1.5rem; }
-  .foot-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
-  .foot-bottom { flex-direction: column; align-items: flex-start; gap:.8rem; border-top-color: rgba(222,192,173,.05); }
 }
 
 @media (max-width: 480px) {
@@ -315,7 +298,6 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
   .eitem { grid-template-columns: 70px 1fr auto; }
   .edot { display: none; }
   .team-grid { grid-template-columns: 1fr 1fr; }
-  .foot-top { grid-template-columns: 1fr; }
   .split-cta { min-height: auto; }
 }
 </style>
@@ -324,14 +306,15 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
 <div id="cur"></div>
 <div id="cur2"></div>
 
-<nav>
-  <a href="index.html" class="nlogo">ESTYMATOR</a>
+<nav role="navigation" aria-label="Główna nawigacja">
+  <a href="index.html" class="nlogo" aria-label="Estymator — strona główna">ESTYMATOR</a>
   <button class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
   <ul class="nlinks">
     <li><a href="studenci.html">Dla studentów</a></li>
     <li><a href="firmy.html">Dla firm</a></li>
+    <li><a href="#blog">Blog</a></li>
     <li><a href="#join" class="ncta">Dołącz →</a></li>
   </ul>
 </nav>
@@ -363,7 +346,7 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
   <div class="hero-bar">
     <div class="hbar-item">
       <div class="hbar-label">Wydział</div>
-      <div class="hbar-val" style="font-size:.9rem;font-family:'IBM Plex Mono';letter-spacing:.02em;">W4 · WIT</div>
+      <div class="hbar-val hbar-mono">W4 · WIT</div>
     </div>
     <div class="hbar-item">
       <div class="hbar-label">Założone</div>
@@ -375,7 +358,7 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
     </div>
     <div class="hbar-item">
       <div class="hbar-label">Dołącz teraz</div>
-      <div class="hbar-val" style="font-size:.85rem;font-family:'IBM Plex Mono';">→ W4 B314</div>
+      <div class="hbar-val hbar-mono">→ W4 B314</div>
     </div>
   </div>
 </section>
@@ -445,8 +428,8 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
     <h2 class="areas-h">Obszary<br><span>badań</span></h2>
     <div class="areas-count">06</div>
   </div>
-  <div class="areas-grid">
-    <div class="acard"><div class="acard-bg"></div><div class="acard-overlay"></div><div class="acard-inner"><div class="ac-top"><div class="ac-num">01</div><div class="ac-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div></div><div class="ac-bot"><div class="ac-color ac-color1"></div><h3 class="ac-title">Computer Vision</h3><p class="ac-desc">Rozpoznawanie obrazów, detekcja obiektów, segmentacja semantyczna i instancyjna. CNN, ViT, DETR.</p></div></div><div class="ac-hover-line ac-hl1"></div></div>
+  <div class="areas-grid rv-stagger">
+    <div class="acard rv"><div class="acard-bg"></div><div class="acard-overlay"></div><div class="acard-inner"><div class="ac-top"><div class="ac-num">01</div><div class="ac-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div></div><div class="ac-bot"><div class="ac-color ac-color1"></div><h3 class="ac-title">Computer Vision</h3><p class="ac-desc">Rozpoznawanie obrazów, detekcja obiektów, segmentacja semantyczna i instancyjna. CNN, ViT, DETR.</p></div></div><div class="ac-hover-line ac-hl1"></div></div>
     <div class="acard"><div class="acard-bg"></div><div class="acard-overlay"></div><div class="acard-inner"><div class="ac-top"><div class="ac-num">02</div><div class="ac-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div></div><div class="ac-bot"><div class="ac-color ac-color2"></div><h3 class="ac-title">NLP & LLMs</h3><p class="ac-desc">Transformery, fine-tuning, RAG, embeddingi, analiza sentymentu. GPT, BERT, LLaMA.</p></div></div><div class="ac-hover-line ac-hl2"></div></div>
     <div class="acard"><div class="acard-bg"></div><div class="acard-overlay"></div><div class="acard-inner"><div class="ac-top"><div class="ac-num">03</div><div class="ac-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div></div><div class="ac-bot"><div class="ac-color ac-color3"></div><h3 class="ac-title">Reinforcement Learning</h3><p class="ac-desc">Uczenie ze wzmocnieniem, PPO, SAC, środowiska symulacyjne, RLHF, AlphaGo.</p></div></div><div class="ac-hover-line ac-hl3"></div></div>
     <div class="acard"><div class="acard-bg"></div><div class="acard-overlay"></div><div class="acard-inner"><div class="ac-top"><div class="ac-num">04</div><div class="ac-icon"><svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l3 3"/></svg></div></div><div class="ac-bot"><div class="ac-color ac-color4"></div><h3 class="ac-title">Generative AI</h3><p class="ac-desc">Modele dyfuzyjne, GAN, VAE, generowanie obrazów, muzyki i kodu. Stable Diffusion, DALL·E.</p></div></div><div class="ac-hover-line ac-hl4"></div></div>
@@ -490,7 +473,7 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
       <a href="#" class="ev-link">Pełny kalendarz →</a>
     </div>
   </div>
-  <div class="ev-list rv">
+  <div class="ev-list rv-stagger">
     <div class="eitem"><div class="edate"><strong>12</strong>CZE<br>2025</div><div class="edot seminar"></div><div class="emeta"><div class="etitle">Diffusion Models od teorii do praktyki</div><span class="etag seminar">Seminarium</span></div><div class="earrow">→</div></div>
     <div class="eitem"><div class="edate"><strong>19</strong>CZE<br>2025</div><div class="edot workshop"></div><div class="emeta"><div class="etitle">Warsztat: Fine-tuning LLM z LoRA</div><span class="etag workshop">Warsztat</span></div><div class="earrow">→</div></div>
     <div class="eitem"><div class="edate"><strong>28</strong>CZE<br>2025</div><div class="edot hack"></div><div class="emeta"><div class="etitle">Wrocław AI Hackathon — edycja letnia</div><span class="etag hack">Hackathon</span></div><div class="earrow">→</div></div>
@@ -515,15 +498,15 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
     <h2 class="scr-h">Znajdź<br>nas<br>tutaj</h2>
     <p class="scr-p">Wydział Informatyki i Telekomunikacji, sala B314, budynek C-16. Spotkania co dwa tygodnie w czwartek o 18:00.</p>
     <div class="contact-items">
-      <a href="mailto:estymator@pwr.edu.pl" class="ci" style="color:var(--O);">
+      <a href="mailto:estymator@pwr.edu.pl" class="ci">
         <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M22 6L12 13 2 6M2 6h20v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" stroke-linecap="round" stroke-linejoin="round"/></svg>
         estymator@pwr.edu.pl
       </a>
-      <a href="#" class="ci" style="color:var(--O);">
+      <a href="#" class="ci">
         <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         Bud. C-16, sala B314, PWr
       </a>
-      <a href="#" class="ci" style="color:var(--O);">
+      <a href="#" class="ci">
         <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
         github.com/estymator-pwr
       </a>
@@ -531,13 +514,25 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
   </div>
 </div>
 
+<!-- ===== BLOG / NEWS ===== -->
+<section class="blog-section" id="blog">
+  <div class="section-head rv">
+    <div>
+      <div class="section-label">Aktualności</div>
+      <h2 class="section-title">Blog <span>koła</span></h2>
+    </div>
+    <p class="section-desc">Najnowsze wpisy, relacje z wydarzeń, wyniki badań i ogłoszenia.</p>
+  </div>
+  <div class="blog-grid rv-stagger" data-blog data-blog-limit="6"></div>
+</section>
+
 <!-- ===== TEAM ===== -->
 <section class="team" id="team">
   <div class="rv">
     <h2 class="team-h">Nasz zespół</h2>
     <p class="team-sub">// Studenci i doktoranci WIT Politechniki Wrocławskiej</p>
   </div>
-  <div class="team-grid rv">
+  <div class="team-grid rv-stagger">
     <div class="tcard"><div class="tcard-face"><div class="tavatar">KK</div><div class="trole">Przewodnicząca</div><div class="tname">Kinga Kulawik</div><div class="tfield">Deep Learning · NLP</div></div><div class="tcard-hover-bar"></div></div>
     <div class="tcard"><div class="tcard-face"><div class="tavatar">MN</div><div class="trole">V-ce Przewodnicząca</div><div class="tname">Marta Nowak</div><div class="tfield">Computer Vision · GANs</div></div><div class="tcard-hover-bar"></div></div>
     <div class="tcard"><div class="tcard-face"><div class="tavatar">PW</div><div class="trole">Sekretarz</div><div class="tname">Piotr Wiśniewski</div><div class="tfield">Reinforcement Learning</div></div><div class="tcard-hover-bar"></div></div>
@@ -578,6 +573,7 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
 </footer>
 
 <script src="shared.js"></script>
+<script src="js/posts-loader.js"></script>
 <script>
 // COUNTER ANIMATION
 function animN(el, t, sfx='') {

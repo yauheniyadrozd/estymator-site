@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel · Estymator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--W:#EBEBE9;--C:#DEC0AD;--R:#B41D15;--O:#001B2E;--T:#114A6B;--G:#E8A784;--black:#000;--RD:#8B1510}
+body{background:var(--O);color:var(--W);font-family:'IBM Plex Mono',monospace;min-height:100vh}
+a{color:inherit}
+
+/* LOGIN SCREEN */
+.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+.login-box{background:rgba(17,74,107,.15);border:1px solid rgba(222,192,173,.12);padding:3rem;width:100%;max-width:420px;text-align:center}
+.login-box h1{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.1em;color:var(--G);margin-bottom:.5rem}
+.login-box p{font-size:.75rem;color:rgba(235,235,233,.5);margin-bottom:2rem}
+.login-box input{width:100%;padding:1rem;background:rgba(0,0,0,.4);border:1px solid rgba(222,192,173,.2);color:var(--W);font-family:inherit;font-size:.85rem;margin-bottom:1rem;outline:none;transition:border-color .2s}
+.login-box input:focus{border-color:var(--G);box-shadow:0 0 0 3px rgba(232,167,132,.15)}
+.login-box button{width:100%;padding:1rem;background:var(--R);color:var(--W);border:none;font-family:inherit;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;cursor:pointer;transition:background .2s,transform .15s}
+.login-box button:hover{background:var(--RD);transform:translateY(-1px)}
+.login-box button:active{transform:translateY(0)}
+.login-msg{font-size:.7rem;margin-top:.8rem;min-height:1.2em}
+.login-msg.err{color:var(--R)}
+.login-msg.ok{color:#56d364}
+
+/* DASHBOARD */
+.dashboard{display:none}
+.dash-loaded .login-screen{display:none}
+.dash-loaded .dashboard{display:block}
+
+/* TOP BAR */
+.topbar{background:rgba(0,0,0,.5);border-bottom:1px solid rgba(222,192,173,.1);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.tb-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;color:var(--G)}
+.tb-actions{display:flex;gap:.8rem;align-items:center}
+.tb-btn{padding:.5rem 1rem;font-family:inherit;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;border:none;cursor:pointer;transition:background .2s,opacity .2s}
+.tb-btn.ghost{background:transparent;border:1px solid rgba(222,192,173,.25);color:var(--C)}
+.tb-btn.ghost:hover{border-color:var(--G);color:var(--G)}
+.tb-btn.primary{background:var(--R);color:var(--W)}
+.tb-btn.primary:hover{background:var(--RD)}
+.tb-btn.green{background:#2ea043;color:#fff}
+.tb-btn.green:hover{background:#238636}
+.tb-user{font-size:.7rem;color:rgba(235,235,233,.4)}
+
+/* MAIN LAYOUT */
+.admin-main{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 57px)}
+
+/* SIDEBAR */
+.sidebar{background:rgba(0,0,0,.3);border-right:1px solid rgba(222,192,173,.08);padding:2rem 1.5rem;display:flex;flex-direction:column;gap:.3rem}
+.sb-link{display:flex;align-items:center;gap:.8rem;padding:.75rem 1rem;font-size:.72rem;color:rgba(235,235,233,.5);text-decoration:none;border-radius:4px;transition:all .2s;cursor:pointer;border:none;background:none;font-family:inherit;width:100%;text-align:left}
+.sb-link:hover{background:rgba(17,74,107,.25);color:var(--C)}
+.sb-link.active{background:rgba(17,74,107,.4);color:var(--G)}
+.sb-link svg{width:16px;height:16px;stroke:currentColor;fill:none;flex-shrink:0}
+.sb-badge{font-size:.55rem;background:var(--R);color:#fff;padding:.15rem .45rem;border-radius:10px;margin-left:auto}
+
+/* CONTENT AREA */
+.content{padding:2.5rem;max-width:1100px}
+.content h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.05em;margin-bottom:.5rem}
+.content .sub{font-size:.7rem;color:rgba(235,235,233,.35);margin-bottom:2rem}
+
+/* PANEL / CARD */
+.panel-card{background:rgba(0,0,0,.25);border:1px solid rgba(222,192,173,.08);padding:2rem;margin-bottom:1.5rem}
+.panel-card h3{font-family:'Fraunces',serif;font-size:1.1rem;margin-bottom:1.5rem;color:var(--C)}
+
+/* FORM */
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--G);margin-bottom:.4rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:.75rem 1rem;background:rgba(0,0,0,.4);border:1px solid rgba(222,192,173,.15);color:var(--W);font-family:inherit;font-size:.78rem;outline:none;transition:border-color .2s;resize:vertical}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--G);box-shadow:0 0 0 3px rgba(232,167,132,.1)}
+.form-group textarea{min-height:200px;font-family:inherit}
+.form-group select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23DEC0AD' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
+.form-group select option{background:var(--O);color:var(--W)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* TAGS INPUT */
+.tags-wrap{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+.tag-item{display:flex;align-items:center;gap:.3rem;font-size:.6rem;letter-spacing:.08em;padding:.25rem .55rem;background:rgba(17,74,107,.4);border:1px solid rgba(17,74,107,.5);color:var(--C);border-radius:2px}
+.tag-item button{background:none;border:none;color:var(--R);cursor:pointer;font-size:.8rem;line-height:1;padding:0 0 0 .2rem}
+
+/* POST LIST */
+.post-list{display:flex;flex-direction:column;gap:1px;background:rgba(222,192,173,.06)}
+.post-row{display:grid;grid-template-columns:80px 1fr 160px 100px;align-items:center;gap:1.5rem;padding:1rem 1.5rem;background:var(--O);transition:background .2s}
+.post-row:hover{background:rgba(17,74,107,.1)}
+.pr-date{font-size:.65rem;color:rgba(235,235,233,.35)}
+.pr-date strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--C);letter-spacing:.05em}
+.pr-title{font-size:.82rem;font-weight:700}
+.pr-cat{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .5rem;border-radius:2px;display:inline-block}
+.pr-cat.news{background:rgba(232,167,132,.12);color:var(--G);border:1px solid rgba(232,167,132,.2)}
+.pr-cat.event{background:rgba(222,192,173,.12);color:var(--C);border:1px solid rgba(222,192,173,.2)}
+.pr-cat.research{background:rgba(180,29,21,.15);color:var(--R);border:1px solid rgba(180,29,21,.3)}
+.pr-actions{display:flex;gap:.4rem}
+.pr-actions button{padding:.4rem .7rem;font-family:inherit;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;border:1px solid rgba(222,192,173,.2);background:transparent;color:var(--C);cursor:pointer;transition:all .2s}
+.pr-actions button:hover{background:rgba(222,192,173,.1);border-color:var(--G)}
+.pr-actions button.danger{color:var(--R);border-color:rgba(180,29,21,.3)}
+.pr-actions button.danger:hover{background:rgba(180,29,21,.15)}
+
+/* FILE UPLOAD ZONE */
+.upload-zone{border:2px dashed rgba(222,192,173,.15);padding:3rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:1rem}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--G);background:rgba(232,167,132,.05)}
+.upload-zone p{font-size:.75rem;color:rgba(235,235,233,.4)}
+.upload-zone p strong{color:var(--G)}
+.file-list{display:flex;flex-direction:column;gap:.5rem}
+.file-item{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;background:rgba(0,0,0,.3);border:1px solid rgba(222,192,173,.1);font-size:.72rem}
+.file-item .fi-name{color:var(--C)}
+.file-item .fi-size{color:rgba(235,235,233,.3);font-size:.62rem}
+.file-item button{background:none;border:none;color:var(--R);cursor:pointer;font-size:.75rem;padding:.2rem .4rem}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-box{background:rgba(0,0,0,.25);border:1px solid rgba(222,192,173,.08);padding:1.5rem;text-align:center}
+.stat-num{font-family:'Fraunces',serif;font-size:2.5rem;font-weight:900;line-height:1}
+.stat-num.r{color:var(--R)}.stat-num.c{color:var(--C)}.stat-num.g{color:var(--G)}.stat-num.t{color:var(--T)}
+.stat-lab{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(235,235,233,.35);margin-top:.4rem}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;display:flex;align-items:center;justify-content:center;padding:2rem}
+.modal{background:var(--O);border:1px solid rgba(222,192,173,.15);width:100%;max-width:500px;padding:2rem}
+.modal h3{font-family:'Fraunces',serif;margin-bottom:1rem}
+.modal-actions{display:flex;gap:.8rem;justify-content:flex-end;margin-top:1.5rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--T);border:1px solid rgba(222,192,173,.2);padding:1rem 1.5rem;font-size:.7rem;z-index:600;animation:slideIn .3s ease;max-width:350px}
+.toast.error{background:var(--R);border-color:var(--R)}
+.toast.success{background:#1a3520;border-color:#2ea043}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:4rem 2rem;color:rgba(235,235,233,.2)}
+.empty svg{width:60px;height:60px;stroke:rgba(235,235,233,.15);margin-bottom:1rem}
+.empty p{font-size:.8rem}
+
+/* SETTINGS */
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-bottom:1px solid rgba(222,192,173,.06)}
+.settings-row .sl{font-size:.78rem}
+.settings-row .sr{display:flex;gap:.6rem;align-items:center}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .admin-main{grid-template-columns:1fr}
+  .sidebar{flex-direction:row;flex-wrap:wrap;padding:1rem;gap:.4rem;overflow-x:auto}
+  .sb-link{width:auto;padding:.5rem .8rem;font-size:.65rem}
+  .content{padding:1.5rem}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .post-row{grid-template-columns:60px 1fr auto;gap:.8rem;padding:.8rem 1rem}
+  .pr-date strong{font-size:.9rem}
+  .form-row{grid-template-columns:1fr}
+  .pr-actions{flex-direction:column}
+}
+@media(max-width:500px){
+  .topbar{padding:.8rem 1rem}
+  .tb-logo{font-size:1.1rem}
+  .stats-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<section class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <h1>ESTYMATOR</h1>
+    <p>Panel administracyjny</p>
+    <input type="password" id="loginPass" placeholder="Hasło administratora" autofocus>
+    <button onclick="tryLogin()">Zaloguj się</button>
+    <div class="login-msg" id="loginMsg"></div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="topbar">
+    <div class="tb-logo">ESTYMATOR · ADMIN</div>
+    <div class="tb-actions">
+      <a href="index.html" class="tb-btn ghost" target="_blank">Podgląd strony ↗</a>
+      <button class="tb-btn green" onclick="exportData()">Eksportuj JSON</button>
+      <button class="tb-btn ghost" onclick="importData()">Importuj JSON</button>
+      <span class="tb-user">👤 admin</span>
+      <button class="tb-btn primary" onclick="logout()">Wyloguj</button>
+    </div>
+  </div>
+
+  <div class="admin-main">
+    <div class="sidebar">
+      <button class="sb-link active" data-page="dashboard" onclick="switchPage('dashboard')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Panel główny
+      </button>
+      <button class="sb-link" data-page="posts" onclick="switchPage('posts')">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Wszystkie posty
+      </button>
+      <button class="sb-link" data-page="new-post" onclick="switchPage('new-post')">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Nowy post
+      </button>
+    </div>
+
+    <div class="content" id="pageContent"></div>
+  </div>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
