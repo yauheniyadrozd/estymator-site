@@ -219,9 +219,9 @@
 .team-h { font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,7vw,6rem); letter-spacing:.05em; margin-bottom:.5rem; }
 .team-sub { font-size:.65rem; color:rgba(235,235,233,.3); letter-spacing:.1em; margin-bottom:3rem; }
 .team-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0; }
-.tcard { position:relative; overflow:hidden; cursor:pointer; border-right:1px solid rgba(235,235,233,.05); }
+.tcard { position:relative; overflow:hidden; cursor:pointer; border-right:1px solid rgba(235,235,233,.05); display:flex; flex-direction:column; }
 .tcard:last-child { border-right:none; }
-.tcard-face { padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; text-align:center; background:var(--O); transition:background .4s; }
+.tcard-face { padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; text-align:center; background:var(--O); transition:background .4s; flex:1; }
 .tcard:hover .tcard-face { background:var(--T); }
 .tavatar { width:72px; height:72px; border-radius:50%; border:2px solid rgba(232,167,132,.2); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:.05em; color:var(--W); margin-bottom:1.2rem; transition:border-color .3s; background:rgba(17,74,107,.5); }
 .tcard:hover .tavatar { border-color:var(--G); }
