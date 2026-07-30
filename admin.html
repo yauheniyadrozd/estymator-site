@@ -165,7 +165,7 @@ a{color:inherit}
     <p>Panel administracyjny</p>
     <input type="password" id="loginPass" placeholder="Hasło administratora" autofocus>
     <button onclick="tryLogin()">Zaloguj się</button>
-    <button onclick="tryLogin('admin123')" style="background:var(--T);margin-top:.5rem">Wejdź jako admin (kod: admin123)</button>
+    <button onclick="masterLogin()" style="background:var(--T);margin-top:.5rem">Wejdź jako admin</button>
     <div class="login-msg" id="loginMsg"></div>
   </div>
 </section>
@@ -203,6 +203,6 @@ a{color:inherit}
   </div>
 </div>
 
-<script src="js/admin.js?v=3"></script>
+<script src="js/admin.js?v=4"></script>
 </body>
 </html>

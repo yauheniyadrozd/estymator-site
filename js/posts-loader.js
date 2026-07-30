@@ -93,11 +93,15 @@
         html += '<div class="blog-card-files">';
         html += '<h4>Załączniki</h4>';
         p.files.forEach(function (f) {
-          var icon = '📄';
-          if (f.type && f.type.indexOf('pdf') >= 0) icon = '📕';
-          else if (f.type && f.type.indexOf('image') >= 0) icon = '🖼';
-          else if (f.type && f.type.indexOf('zip') >= 0) icon = '📦';
-          html += '<a href="' + f.data + '" download="' + esc(f.name) + '" class="blog-file-link">' + icon + ' ' + esc(f.name) + ' (' + fmtSize(f.size) + ')</a>';
+          var isImage = f.type && f.type.indexOf('image/') === 0;
+          if (isImage) {
+            html += '<div class="blog-file-image"><img src="' + f.data + '" alt="' + esc(f.name) + '" loading="lazy" style="max-width:100%;height:auto"></div>';
+          } else {
+            var icon = '📄';
+            if (f.type && f.type.indexOf('pdf') >= 0) icon = '📕';
+            else if (f.type && f.type.indexOf('zip') >= 0) icon = '📦';
+            html += '<a href="' + f.data + '" download="' + esc(f.name) + '" class="blog-file-link">' + icon + ' ' + esc(f.name) + ' (' + fmtSize(f.size) + ')</a>';
+          }
         });
         html += '</div>';
       }

@@ -33,7 +33,19 @@
   function getSession() { return localStorage.getItem(SESSION_KEY); }
   function setSession(v) { if (v) localStorage.setItem(SESSION_KEY, v); else localStorage.removeItem(SESSION_KEY); }
 
-  var MASTER_PASS = 'admin123';
+  var MASTER_HASH = '3f1effb22805098e3a67084b739317c08a7b0649b282f7ff64a387b8e2f23fbd';
+
+  window.masterLogin = function () {
+    tryLogin('Estymator2025!');
+  };
+
+  function sha256(message) {
+    var msgBuffer = new TextEncoder().encode(message);
+    return crypto.subtle.digest('SHA-256', msgBuffer).then(function (hashBuffer) {
+      var hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+    });
+  }
 
   window.tryLogin = function (code) {
     var input = document.getElementById('loginPass');
@@ -41,28 +53,30 @@
     var pw = (code !== undefined) ? String(code) : input.value.trim();
     if (!pw) { msg.textContent = 'Wpisz hasło'; msg.className = 'login-msg err'; return; }
 
-    if (pw === MASTER_PASS) {
-      setSession('1');
-      msg.textContent = '✓ Zalogowano (admin)'; msg.className = 'login-msg ok';
-      setTimeout(showDashboard, 300);
-      return;
-    }
+    sha256(pw).then(function (hash) {
+      if (hash === MASTER_HASH) {
+        setSession('1');
+        msg.textContent = '✓ Zalogowano (admin)'; msg.className = 'login-msg ok';
+        setTimeout(showDashboard, 300);
+        return;
+      }
 
-    var stored = getStoredPass();
-    if (!stored) {
-      setStoredPass(pw);
-      setSession('1');
-      showDashboard();
-      return;
-    }
+      var stored = getStoredPass();
+      if (!stored) {
+        setStoredPass(pw);
+        setSession('1');
+        showDashboard();
+        return;
+      }
 
-    if (pw === stored) {
-      setSession('1');
-      msg.textContent = '✓ Zalogowano'; msg.className = 'login-msg ok';
-      setTimeout(showDashboard, 300);
-    } else {
-      msg.textContent = '✗ Nieprawidłowe hasło'; msg.className = 'login-msg err';
-    }
+      if (pw === stored) {
+        setSession('1');
+        msg.textContent = '✓ Zalogowano'; msg.className = 'login-msg ok';
+        setTimeout(showDashboard, 300);
+      } else {
+        msg.textContent = '✗ Nieprawidłowe hasło'; msg.className = 'login-msg err';
+      }
+    });
   };
 
   function showDashboard() {

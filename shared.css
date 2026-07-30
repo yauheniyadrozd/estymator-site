@@ -392,6 +392,15 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
   margin-bottom: .3rem; transition: border-color .2s, background .2s;
 }
 .blog-file-link:hover { border-color: var(--G); background: rgba(232, 167, 132, .08); }
+.blog-file-image {
+  margin-bottom: .8rem;
+  border: 1px solid rgba(222, 192, 173, .1);
+}
+.blog-file-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 
 /* Empty state */
 .blog-empty {
