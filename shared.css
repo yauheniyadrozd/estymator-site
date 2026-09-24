@@ -465,6 +465,41 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
   .blog-modal-img img { max-height: 220px; }
 }
 
+/* ── PARTNERS / LOGO ────────────────────────────── */
+.partners { background: var(--black); padding: 8rem 3rem; border-top: 1px solid rgba(222, 192, 173, .08); }
+.partner-card {
+  display: grid; grid-template-columns: 360px 1fr; gap: 3rem; align-items: center;
+  background: rgba(0, 27, 46, .45);
+  border: 1px solid rgba(222, 192, 173, .12);
+  padding: 3rem;
+  transition: border-color .3s, transform .3s;
+}
+.partner-card:hover { border-color: rgba(232, 167, 132, .35); transform: translateY(-3px); }
+.partner-logo {
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem; border-right: 1px solid rgba(222, 192, 173, .12);
+}
+.thaumatec-logo { display: block; width: 100%; max-width: 320px; height: auto; color: var(--W); }
+.thaumatec-logo path { fill: currentColor; }
+.thaumatec-logo text {
+  fill: currentColor;
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 800; font-size: 72px;
+}
+.thaumatec-logo .ttl-top { letter-spacing: 3.5px; }
+.thaumatec-logo .ttl-bottom { letter-spacing: 5px; }
+.partner-body { display: flex; flex-direction: column; gap: 1rem; }
+.partner-tag { font-size: .55rem; letter-spacing: .2em; text-transform: uppercase; color: var(--G); }
+.partner-body h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 900; line-height: 1.15; }
+.partner-body p { font-size: .8rem; line-height: 1.85; color: rgba(235, 235, 233, .5); font-weight: 300; max-width: 640px; }
+
+@media (max-width: 768px) {
+  .partners { padding: 4rem 1.4rem; }
+  .partner-card { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.5rem; }
+  .partner-logo { border-right: none; border-bottom: 1px solid rgba(222, 192, 173, .12); padding: 1.5rem 1rem; }
+  .partner-body h3 { font-size: 1.35rem; }
+}
+
 /* ── SCROLL REVEAL ──────────────────────────────── */
 .rv, .rv2 { opacity: 0; }
 .rv { transform: translateY(40px); transition: opacity .7s var(--ease-out-expo), transform .7s var(--ease-out-expo); }

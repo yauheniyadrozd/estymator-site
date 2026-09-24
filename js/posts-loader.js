@@ -103,7 +103,10 @@
   /* ── Blog Post Modal ────────────────────────────── */
   function openModal(postId) {
     var posts = getPosts();
-    var p = posts.find(function (x) { return x.id === postId; });
+    var p = null;
+    for (var i = 0; i < posts.length; i++) {
+      if (posts[i].id === postId) { p = posts[i]; break; }
+    }
     if (!p) return;
 
     var catClass = p.category || 'news';

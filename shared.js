@@ -38,7 +38,7 @@
       cur2.style.transform = 'translate(' + (rx - 22) + 'px,' + (ry - 22) + 'px)';
       requestAnimationFrame(animC);
     })();
-    document.querySelectorAll('a,button,.acard,.tcard,.eitem,.step,.step-box,.card,.blog-card').forEach(el => {
+    document.querySelectorAll('a,button,.acard,.tcard,.eitem,.step,.step-box,.card,.blog-card,.partner-card').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
     });

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Generator Logo Estymator PNG</title>
+    <style>
+        body { font-family: system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: #eef2f5; margin: 0; }
+        .card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+        button { background: #e0287d; color: white; border: none; padding: 14px 28px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.2s; margin-top: 20px; }
+        button:hover { background: #c21865; }
+        canvas { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Podgląd Logo Estymator</h2>
+    
+    <!-- Vector SVG -->
+    <svg id="logoSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" width="300" height="390">
+        <defs>
+            <style>
+                .grid-line { stroke: #4a4d52; stroke-width: 1.2; opacity: 0.6; }
+                .grid-node { fill: #383b42; }
+                .e-path { stroke: #e0287d; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+                .e-node { fill: #e0287d; stroke: #ffffff; stroke-width: 2.5; }
+                .logo-text { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 42px; fill: #383b42; letter-spacing: -1px; }
+            </style>
+        </defs>
+
+        <!-- GRID LINES -->
+        <g id="grid-lines">
+            <!-- Vertical lines -->
+            <line x1="200" y1="50" x2="200" y2="290" class="grid-line" />
+            <line x1="165" y1="80" x2="165" y2="260" class="grid-line" />
+            <line x1="235" y1="80" x2="235" y2="260" class="grid-line" />
+            <line x1="130" y1="110" x2="130" y2="230" class="grid-line" />
+            <line x1="270" y1="110" x2="270" y2="230" class="grid-line" />
+
+            <!-- Horizontal lines -->
+            <line x1="165" y1="80" x2="235" y2="80" class="grid-line" />
+            <line x1="130" y1="110" x2="270" y2="110" class="grid-line" />
+            <line x1="110" y1="140" x2="290" y2="140" class="grid-line" />
+            <line x1="100" y1="170" x2="300" y2="170" class="grid-line" />
+            <line x1="110" y1="200" x2="290" y2="200" class="grid-line" />
+            <line x1="130" y1="230" x2="270" y2="230" class="grid-line" />
+            <line x1="165" y1="260" x2="235" y2="260" class="grid-line" />
+
+            <!-- Diagonals -->
+            <!-- Top pyramid -->
+            <line x1="200" y1="50" x2="165" y2="80" class="grid-line" />
+            <line x1="200" y1="50" x2="235" y2="80" class="grid-line" />
+            <line x1="165" y1="80" x2="130" y2="110" class="grid-line" />
+            <line x1="235" y1="80" x2="270" y2="110" class="grid-line" />
+            <line x1="200" y1="50" x2="130" y2="110" class="grid-line" />
+            <line x1="200" y1="50" x2="270" y2="110" class="grid-line" />
+
+            <!-- Mesh inner diagonals -->
+            <line x1="165" y1="80" x2="200" y2="110" class="grid-line" />
+            <line x1="235" y1="80" x2="200" y2="110" class="grid-line" />
+            <line x1="130" y1="110" x2="165" y2="140" class="grid-line" />
+            <line x1="270" y1="110" x2="235" y2="140" class="grid-line" />
+            <line x1="165" y1="110" x2="200" y2="140" class="grid-line" />
+            <line x1="235" y1="110" x2="200" y2="140" class="grid-line" />
+
+            <line x1="110" y1="140" x2="150" y2="170" class="grid-line" />
+            <line x1="290" y1="140" x2="250" y2="170" class="grid-line" />
+            <line x1="155" y1="140" x2="200" y2="170" class="grid-line" />
+            <line x1="245" y1="140" x2="200" y2="170" class="grid-line" />
+
+            <line x1="100" y1="170" x2="155" y2="200" class="grid-line" />
+            <line x1="300" y1="170" x2="245" y2="200" class="grid-line" />
+            <line x1="150" y1="170" x2="200" y2="200" class="grid-line" />
+            <line x1="250" y1="170" x2="200" y2="200" class="grid-line" />
+
+            <line x1="110" y1="200" x2="165" y2="230" class="grid-line" />
+            <line x1="290" y1="200" x2="235" y2="230" class="grid-line" />
+            <line x1="155" y1="200" x2="200" y2="230" class="grid-line" />
+            <line x1="245" y1="200" x2="200" y2="230" class="grid-line" />
+
+            <!-- Bottom pyramid -->
+            <line x1="130" y1="230" x2="165" y2="260" class="grid-line" />
+            <line x1="270" y1="230" x2="235" y2="260" class="grid-line" />
+            <line x1="165" y1="230" x2="200" y2="260" class="grid-line" />
+            <line x1="235" y1="230" x2="200" y2="260" class="grid-line" />
+            <line x1="165" y1="260" x2="200" y2="290" class="grid-line" />
+            <line x1="235" y1="260" x2="200" y2="290" class="grid-line" />
+            <line x1="130" y1="230" x2="200" y2="290" class="grid-line" />
+            <line x1="270" y1="230" x2="200" y2="290" class="grid-line" />
+        </g>
+
+        <!-- GRID NODES -->
+        <g id="grid-nodes">
+            <!-- Row 0 -->
+            <circle cx="200" cy="50" r="3.5" class="grid-node" />
+            <!-- Row 1 -->
+            <circle cx="165" cy="80" r="3.5" class="grid-node" />
+            <circle cx="200" cy="80" r="3.5" class="grid-node" />
+            <circle cx="235" cy="80" r="3.5" class="grid-node" />
+            <!-- Row 2 -->
+            <circle cx="130" cy="110" r="3.5" class="grid-node" />
+            <circle cx="165" cy="110" r="3.5" class="grid-node" />
+            <circle cx="200" cy="110" r="3.5" class="grid-node" />
+            <circle cx="235" cy="110" r="3.5" class="grid-node" />
+            <circle cx="270" cy="110" r="3.5" class="grid-node" />
+            <!-- Row 3 -->
+            <circle cx="110" cy="140" r="3.5" class="grid-node" />
+            <circle cx="155" cy="140" r="3.5" class="grid-node" />
+            <circle cx="200" cy="140" r="3.5" class="grid-node" />
+            <circle cx="245" cy="140" r="3.5" class="grid-node" />
+            <circle cx="290" cy="140" r="3.5" class="grid-node" />
+            <!-- Row 4 -->
+            <circle cx="100" cy="170" r="3.5" class="grid-node" />
+            <circle cx="150" cy="170" r="3.5" class="grid-node" />
+            <circle cx="200" cy="170" r="3.5" class="grid-node" />
+            <circle cx="250" cy="170" r="3.5" class="grid-node" />
+            <circle cx="300" cy="170" r="3.5" class="grid-node" />
+            <!-- Row 5 -->
+            <circle cx="110" cy="200" r="3.5" class="grid-node" />
+            <circle cx="155" cy="200" r="3.5" class="grid-node" />
+            <circle cx="200" cy="200" r="3.5" class="grid-node" />
+            <circle cx="245" cy="200" r="3.5" class="grid-node" />
+            <circle cx="290" cy="200" r="3.5" class="grid-node" />
+            <!-- Row 6 -->
+            <circle cx="130" cy="230" r="3.5" class="grid-node" />
+            <circle cx="165" cy="230" r="3.5" class="grid-node" />
+            <circle cx="200" cy="230" r="3.5" class="grid-node" />
+            <circle cx="235" cy="230" r="3.5" class="grid-node" />
+            <circle cx="270" cy="230" r="3.5" class="grid-node" />
+            <!-- Row 7 -->
+            <circle cx="165" cy="260" r="3.5" class="grid-node" />
+            <circle cx="200" cy="260" r="3.5" class="grid-node" />
+            <circle cx="235" cy="260" r="3.5" class="grid-node" />
+            <!-- Row 8 -->
+            <circle cx="200" cy="290" r="3.5" class="grid-node" />
+        </g>
+
+        <!-- PINK HIGHLIGHTED 'E' PATH -->
+        <g id="pink-e">
+            <!-- Path: Top-Right -> Top-Left -> Mid-Left -> Mid-Right -> Mid-Left -> Bottom-Left -> Bottom-Right -->
+            <path d="M 235,80 L 165,110 L 165,170 L 235,140 M 165,170 L 165,260 L 235,230" class="e-path" />
+            
+            <!-- Nodes on the E -->
+            <circle cx="235" cy="80" r="7.5" class="e-node" />
+            <circle cx="165" cy="110" r="7.5" class="e-node" />
+            <circle cx="165" cy="170" r="7.5" class="e-node" />
+            <circle cx="235" cy="140" r="7.5" class="e-node" />
+            <circle cx="165" cy="260" r="7.5" class="e-node" />
+            <circle cx="235" cy="230" r="7.5" class="e-node" />
+        </g>
+
+        <!-- LOGO TEXT -->
+        <text x="200" y="420" text-anchor="middle" class="logo-text">estymator</text>
+    </svg>
+
+    <br>
+    <button onclick="downloadPNG()">Pobierz logo jako przezroczysty PNG</button>
+</div>
+
+<canvas id="canvas" width="1200" height="1560"></canvas>
+
+<script>
+    function downloadPNG() {
+        const svg = document.getElementById('logoSvg');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+        const URL = window.URL || window.webkitURL || window;
+        const blobURL = URL.createObjectURL(svgBlob);
+        
+        const image = new Image();
+        image.onload = function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+            
+            const png = canvas.toDataURL('image/png');
+            const downloadLink = document.createElement('a');
+            downloadLink.href = png;
+            downloadLink.download = 'estymator-logo-transparent.png';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        };
+        image.src = blobURL;
+    }
+</script>
+
+</body>
+</html>

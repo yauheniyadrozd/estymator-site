@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Generator Logo Thaumatec Tech Group</title>
+    <style>
+        body { font-family: system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: #eef2f5; margin: 0; }
+        .card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+        button { background: #1a171a; color: white; border: none; padding: 14px 28px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: background 0.2s; margin-top: 20px; }
+        button:hover { background: #333; }
+        canvas { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Podgląd Logo THAUMATEC TECH GROUP</h2>
+    
+    <!-- Vector SVG -->
+    <svg id="logoSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" width="500" height="215">
+        <defs>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap');
+                .logo-mark { fill: #1a171a; }
+                .text-top { font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 72px; fill: #1a171a; letter-spacing: 3.5px; }
+                .text-bottom { font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; font-size: 72px; fill: #1a171a; letter-spacing: 5px; }
+            </style>
+        </defs>
+
+        <!-- Left 'T' Symbol -->
+        <path class="logo-mark" d="M 0 0 H 155 V 308 L 103 350 V 52 H 0 Z" />
+
+        <!-- Right 'T' Symbol -->
+        <path class="logo-mark" d="M 174 68 H 328 V 120 H 226 V 378 L 174 420 Z" />
+
+        <!-- Brand Text -->
+        <text x="310" y="190" class="text-top">THAUMATEC</text>
+        <text x="310" y="310" class="text-bottom">TECH GROUP</text>
+    </svg>
+
+    <br>
+    <button onclick="downloadPNG()">Pobierz logo jako przezroczysty PNG</button>
+</div>
+
+<canvas id="canvas" width="2000" height="860"></canvas>
+
+<script>
+    function downloadPNG() {
+        const svg = document.getElementById('logoSvg');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+        const URL = window.URL || window.webkitURL || window;
+        const blobURL = URL.createObjectURL(svgBlob);
+        
+        const image = new Image();
+        image.onload = function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+            
+            const png = canvas.toDataURL('image/png');
+            const downloadLink = document.createElement('a');
+            downloadLink.href = png;
+            downloadLink.download = 'thaumatec-tech-group-logo.png';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        };
+        image.src = blobURL;
+    }
+</script>
+
+</body>
+</html>
