@@ -24,6 +24,83 @@
     });
   }
 
+  /* ── LOGO ───────────────────────────────────────── */
+  const logoMark = `
+  <svg class="nlogo-mark" viewBox="95 45 210 250" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g class="est-grid">
+      <line x1="200" y1="50" x2="200" y2="290"/>
+      <line x1="165" y1="80" x2="165" y2="260"/>
+      <line x1="235" y1="80" x2="235" y2="260"/>
+      <line x1="130" y1="110" x2="130" y2="230"/>
+      <line x1="270" y1="110" x2="270" y2="230"/>
+      <line x1="165" y1="80" x2="235" y2="80"/>
+      <line x1="130" y1="110" x2="270" y2="110"/>
+      <line x1="110" y1="140" x2="290" y2="140"/>
+      <line x1="100" y1="170" x2="300" y2="170"/>
+      <line x1="110" y1="200" x2="290" y2="200"/>
+      <line x1="130" y1="230" x2="270" y2="230"/>
+      <line x1="165" y1="260" x2="235" y2="260"/>
+      <line x1="200" y1="50" x2="165" y2="80"/>
+      <line x1="200" y1="50" x2="235" y2="80"/>
+      <line x1="165" y1="80" x2="130" y2="110"/>
+      <line x1="235" y1="80" x2="270" y2="110"/>
+      <line x1="200" y1="50" x2="130" y2="110"/>
+      <line x1="200" y1="50" x2="270" y2="110"/>
+      <line x1="165" y1="80" x2="200" y2="110"/>
+      <line x1="235" y1="80" x2="200" y2="110"/>
+      <line x1="130" y1="110" x2="165" y2="140"/>
+      <line x1="270" y1="110" x2="235" y2="140"/>
+      <line x1="165" y1="110" x2="200" y2="140"/>
+      <line x1="235" y1="110" x2="200" y2="140"/>
+      <line x1="110" y1="140" x2="150" y2="170"/>
+      <line x1="290" y1="140" x2="250" y2="170"/>
+      <line x1="155" y1="140" x2="200" y2="170"/>
+      <line x1="245" y1="140" x2="200" y2="170"/>
+      <line x1="100" y1="170" x2="155" y2="200"/>
+      <line x1="300" y1="170" x2="245" y2="200"/>
+      <line x1="150" y1="170" x2="200" y2="200"/>
+      <line x1="250" y1="170" x2="200" y2="200"/>
+      <line x1="110" y1="200" x2="165" y2="230"/>
+      <line x1="290" y1="200" x2="235" y2="230"/>
+      <line x1="155" y1="200" x2="200" y2="230"/>
+      <line x1="245" y1="200" x2="200" y2="230"/>
+      <line x1="130" y1="230" x2="165" y2="260"/>
+      <line x1="270" y1="230" x2="235" y2="260"/>
+      <line x1="165" y1="230" x2="200" y2="260"/>
+      <line x1="235" y1="230" x2="200" y2="260"/>
+      <line x1="165" y1="260" x2="200" y2="290"/>
+      <line x1="235" y1="260" x2="200" y2="290"/>
+      <line x1="130" y1="230" x2="200" y2="290"/>
+      <line x1="270" y1="230" x2="200" y2="290"/>
+    </g>
+    <g class="est-nodes">
+      <circle cx="200" cy="50" r="3.5"/>
+      <circle cx="165" cy="80" r="3.5"/><circle cx="200" cy="80" r="3.5"/><circle cx="235" cy="80" r="3.5"/>
+      <circle cx="130" cy="110" r="3.5"/><circle cx="165" cy="110" r="3.5"/><circle cx="200" cy="110" r="3.5"/><circle cx="235" cy="110" r="3.5"/><circle cx="270" cy="110" r="3.5"/>
+      <circle cx="110" cy="140" r="3.5"/><circle cx="155" cy="140" r="3.5"/><circle cx="200" cy="140" r="3.5"/><circle cx="245" cy="140" r="3.5"/><circle cx="290" cy="140" r="3.5"/>
+      <circle cx="100" cy="170" r="3.5"/><circle cx="150" cy="170" r="3.5"/><circle cx="200" cy="170" r="3.5"/><circle cx="250" cy="170" r="3.5"/><circle cx="300" cy="170" r="3.5"/>
+      <circle cx="110" cy="200" r="3.5"/><circle cx="155" cy="200" r="3.5"/><circle cx="200" cy="200" r="3.5"/><circle cx="245" cy="200" r="3.5"/><circle cx="290" cy="200" r="3.5"/>
+      <circle cx="130" cy="230" r="3.5"/><circle cx="165" cy="230" r="3.5"/><circle cx="200" cy="230" r="3.5"/><circle cx="235" cy="230" r="3.5"/><circle cx="270" cy="230" r="3.5"/>
+      <circle cx="165" cy="260" r="3.5"/><circle cx="200" cy="260" r="3.5"/><circle cx="235" cy="260" r="3.5"/>
+      <circle cx="200" cy="290" r="3.5"/>
+    </g>
+    <g class="est-e">
+      <path class="est-e-path" d="M 235,80 L 165,110 L 165,170 L 235,140 M 165,170 L 165,260 L 235,230"/>
+      <circle class="est-e-node" cx="235" cy="80" r="7.5"/>
+      <circle class="est-e-node" cx="165" cy="110" r="7.5"/>
+      <circle class="est-e-node" cx="165" cy="170" r="7.5"/>
+      <circle class="est-e-node" cx="235" cy="140" r="7.5"/>
+      <circle class="est-e-node" cx="165" cy="260" r="7.5"/>
+      <circle class="est-e-node" cx="235" cy="230" r="7.5"/>
+    </g>
+  </svg>`;
+
+  document.querySelectorAll('.nlogo').forEach(logo => {
+    if (logo.dataset.logoInjected) return;
+    logo.dataset.logoInjected = '1';
+    logo.innerHTML = logoMark + '<span class="nlogo-word">estymator</span>';
+  });
+
   /* ── CUSTOM CURSOR ──────────────────────────────── */
   const cur  = document.getElementById('cur');
   const cur2 = document.getElementById('cur2');

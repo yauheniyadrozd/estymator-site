@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nokia Logo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        .logo-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nokia-logo {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        <!-- Векторный логотип Nokia -->
+        <svg class="nokia-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160">
+            <g fill="#005AFF">
+                <!-- Буква N -->
+                <path d="M 20 10 H 48 V 150 H 20 Z" />
+                <path d="M 20 10 H 48 L 168 150 H 140 Z" />
+
+                <!-- Буква O -->
+                <path fill-rule="evenodd" d="M 240 10 A 70 70 0 1 0 240 150 A 70 70 0 1 0 240 10 Z M 240 38 A 42 42 0 1 1 240 122 A 42 42 0 1 1 240 38 Z" />
+
+                <!-- Буква K -->
+                <path d="M 425 10 L 320 80 L 425 150 H 395 L 346 80 L 395 10 Z" />
+
+                <!-- Буква I -->
+                <path d="M 465 10 H 493 V 150 H 465 Z" />
+
+                <!-- Буква A -->
+                <path d="M 570 10 H 598 L 678 150 H 650 Z" />
+                <path d="M 520 150 H 548 L 578 95 H 625 V 123 H 590 L 548 150 Z" />
+            </g>
+        </svg>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antmicro Logo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #12171e; /* Тёмный фон в стиле Antmicro */
+            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .logo-container {
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .antmicro-logo {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        <!-- Векторный логотип Antmicro -->
+        <svg class="antmicro-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120">
+            <g fill="#ffffff">
+                <!-- Значок (Шестиугольник с узлами) -->
+                <g transform="translate(10, 10)">
+                    <!-- Внешний шестиугольник -->
+                    <polygon points="50,0 93.3,25 93.3,75 50,100 6.7,75 6.7,25" fill="none" stroke="#ffffff" stroke-width="8" stroke-linejoin="round"/>
+                    
+                    <!-- Внутренние узлы и соединения -->
+                    <circle cx="50" cy="50" r="7" />
+                    <circle cx="50" cy="22" r="5" />
+                    <circle cx="26" cy="64" r="5" />
+                    <circle cx="74" cy="64" r="5" />
+                    
+                    <line x1="50" y1="50" x2="50" y2="22" stroke="#ffffff" stroke-width="5" />
+                    <line x1="50" y1="50" x2="26" y2="64" stroke="#ffffff" stroke-width="5" />
+                    <line x1="50" y1="50" x2="74" y2="64" stroke="#ffffff" stroke-width="5" />
+                </g>
+
+                <!-- Текст antmicro -->
+                <text x="130" y="72" font-family="'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif" font-size="52" font-weight="400" letter-spacing="-1.5" fill="#ffffff">antmicro</text>
+            </g>
+        </svg>
+    </div>
+
+</body>
+</html>
