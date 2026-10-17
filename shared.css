@@ -270,8 +270,6 @@ h1 .stroke { -webkit-text-stroke:1.5px var(--C); color:transparent; }
 /* ── FOOTER ─────────────────────────────────────── */
 footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding:4rem 3rem 2rem; }
 .foot-top { display:grid; grid-template-columns:repeat(4,1fr); gap:3rem; margin-bottom:4rem; }
-.foot-brand .fl { font-family:'Bebas Neue',sans-serif; font-size:3rem; letter-spacing:.1em; line-height:1; color:var(--W); }
-.foot-brand .fl span { color:var(--R); }
 .foot-brand .fs { font-size:.65rem; letter-spacing:.15em; color:rgba(235,235,233,.3); margin-top:.4rem; }
 .foot-brand .fp { font-size:.7rem; line-height:1.6; color:rgba(235,235,233,.35); margin-top:1rem; font-weight:300; }
 .foot-col h4 { font-size:.58rem; letter-spacing:.25em; text-transform:uppercase; color:var(--G); margin-bottom:1.2rem; }
