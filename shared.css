@@ -488,19 +488,13 @@ footer { background:var(--O); border-top:1px solid rgba(222,192,173,.1); padding
 .partner-logo {
   display: flex; align-items: center; justify-content: center;
   padding: 2rem; border-right: 1px solid rgba(222, 192, 173, .12);
+  background: #fff;
 }
-.partner-logo svg { width: 100%; height: auto; display: block; }
-.thaumatec-logo { max-width: 300px; color: var(--W); }
-.nokia-logo { max-width: 240px; }
-.antmicro-logo { max-width: 260px; }
-.thaumatec-logo path { fill: currentColor; }
-.thaumatec-logo text {
-  fill: currentColor;
-  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-  font-weight: 800; font-size: 72px;
-}
-.thaumatec-logo .ttl-top { letter-spacing: 3.5px; }
-.thaumatec-logo .ttl-bottom { letter-spacing: 5px; }
+.partner-logo svg, .partner-logo img { width: 100%; height: auto; display: block; }
+.partner-logo img { object-fit: contain; }
+.thaumatec-logo { max-width: 280px; }
+.nokia-logo { max-width: 260px; }
+.antmicro-logo { max-width: 300px; }
 .partner-body { display: flex; flex-direction: column; gap: 1rem; }
 .partner-tag { font-size: .55rem; letter-spacing: .2em; text-transform: uppercase; color: var(--G); }
 .partner-body h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 900; line-height: 1.15; }

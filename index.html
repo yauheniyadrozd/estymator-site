@@ -18,6 +18,15 @@
   grid-template-rows: 1fr auto;
 }
 .hero-copy { grid-column:1; grid-row:1; }
+.hero-logo {
+  display: flex; flex-direction: column; align-items: flex-start; gap: .9rem;
+}
+.hero-logo .nlogo-mark { width: 200px; height: 238px; }
+.hero-logo-word {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 600; font-size: clamp(2.4rem, 5.5vw, 3.6rem); letter-spacing: -.03em;
+  line-height: 1; color: var(--W);
+}
 .hero-panel { grid-column:2; grid-row:1; }
 .hero-bar {
   grid-column: 1 / -1; grid-row:2;
@@ -149,7 +158,7 @@
 .td { width:10px; height:10px; border-radius:50%; }
 .td.r{background:#ff5f57} .td.y{background:#ffbd2e} .td.g{background:#28c840}
 .ttitle { margin-left:auto; font-size:.65rem; color:rgba(235,235,233,.25); letter-spacing:.1em; }
-.term-body { padding:1.5rem; min-height:400px; font-size:.78rem; line-height:1.9; }
+.term-body { padding:1.5rem; height:400px; overflow-y:auto; font-size:.78rem; line-height:1.9; }
 .tl { display:block; }
 .tp{color:var(--T)} .tc{color:var(--W)} .to{color:rgba(235,235,233,.4)}
 .tg{color:#56d364} .tb{color:#79c0ff} .tgl{color:var(--G)} .tc2{color:var(--C)}
@@ -218,7 +227,7 @@
 .team { background:var(--black); padding:8rem 3rem; }
 .team-h { font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,7vw,6rem); letter-spacing:.05em; margin-bottom:.5rem; }
 .team-sub { font-size:.65rem; color:rgba(235,235,233,.3); letter-spacing:.1em; margin-bottom:3rem; }
-.team-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:0; }
+.team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
 .tcard { position:relative; overflow:hidden; cursor:pointer; border-right:1px solid rgba(235,235,233,.05); display:flex; flex-direction:column; }
 .tcard:last-child { border-right:none; }
 .tcard-face { padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; text-align:center; background:var(--O); transition:background .4s; flex:1; }
@@ -248,6 +257,7 @@
   /* Hero index */
   .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
   .hero-copy { grid-column:1; grid-row:1; }
+  .hero-logo .nlogo-mark { width: 140px; height: 167px; }
   .hero-panel { grid-column:1; grid-row:2; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
   .hero-bar { grid-column:1; grid-row:3; grid-template-columns: 1fr 1fr; }
   .hbar-item { padding: 1rem 1.2rem; }
@@ -270,7 +280,7 @@
 
   /* Terminal */
   .terminal-mega { padding: 4rem 1.4rem; }
-  .term-body { min-height: 280px; font-size:.7rem; }
+  .term-body { height: 280px; font-size:.7rem; }
 
   /* Events */
   .events { padding: 4rem 1.4rem; }
@@ -324,7 +334,7 @@
   <canvas id="bgCanvas"></canvas>
   <div class="hero-copy">
     <div class="kicker">SKN · W4 · PWr · od 2025</div>
-    <h1><span class="stroke">Estyma</span>tor</h1>
+    <h1 class="hero-logo">estymator</h1>
     <p class="lead">Studenckie Koło Naukowe Machine Learning. Wydział Informatyki i Telekomunikacji Politechniki Wrocławskiej. Badamy, uczymy, budujemy.</p>
     <div class="hero-actions">
       <a href="studenci.html" class="btn primary">Dla studentów →</a>
@@ -335,12 +345,12 @@
     <div class="panel red" data-bg="Członkowie">
       <div class="p-label">Aktywnych członków</div>
       <div class="p-title">47</div>
-      <p class="p-text">Studentów i doktorantów w kołach badawczych i projektowych.</p>
+      <p class="p-text">Studentów w kołach badawczych i projektowych.</p>
     </div>
     <div class="panel cream" data-bg="Projekty">
-      <div class="p-label">Projekty badawcze</div>
-      <div class="p-title">23</div>
-      <p class="p-text">W 2024/2025 roku pracujemy nad modelami, analizą danych i systemami AI.</p>
+      <div class="p-label">Projekty</div>
+      <div class="p-title">4</div>
+      <p class="p-text">W 2026/2027 roku pracujemy nad modelami, analizą danych i systemami AI.</p>
     </div>
   </div>
   <div class="hero-bar">
@@ -354,11 +364,11 @@
     </div>
     <div class="hbar-item">
       <div class="hbar-label">Publikacje</div>
-      <div class="hbar-val">08</div>
+      <div class="hbar-val">03</div>
     </div>
     <div class="hbar-item">
       <div class="hbar-label">Dołącz teraz</div>
-      <div class="hbar-val hbar-mono">→ W4 B314</div>
+      <div class="hbar-val hbar-mono">→ W4</div>
     </div>
   </div>
 </section>
@@ -401,7 +411,7 @@
       <div class="m-label">Statystyki</div>
       <div class="m-stat"><div class="m-num r" id="s1">0</div><div class="m-slab">Aktywnych członków</div></div>
       <div class="m-divider"></div>
-      <div class="m-stat"><div class="m-num c" id="s2">0</div><div class="m-slab">Projektów 2024/25</div></div>
+      <div class="m-stat"><div class="m-num c" id="s2">0</div><div class="m-slab">Projektów 2026/27</div></div>
       <div class="m-divider"></div>
       <div class="m-stat"><div class="m-num g" id="s3">0</div><div class="m-slab">Seminariów rocznie</div></div>
       <div class="m-divider"></div>
@@ -409,8 +419,8 @@
     </div>
     <div class="m-body rv">
       <blockquote class="m-quote">Nie uczymy tylko <em>jak</em> działa AI — uczymy <strong>dlaczego</strong> i co z tym zrobić.</blockquote>
-      <p class="m-para">Jesteśmy studenckim kołem naukowym, w którego skład wchodzą studenci i doktoranci Wydziału Informatyki i Telekomunikacji Politechniki Wrocławskiej. Naszym celem jest poszerzanie wiedzy i śledzenie nowych trendów w dziedzinie uczenia maszynowego.</p>
-      <p class="m-para">Od seminariów przez projekty badawcze po hackathony — tworzymy środowisko, gdzie nauka idzie w parze z praktyką. Każdy znajdzie tu swoje miejsce, niezależnie od poziomu doświadczenia.</p>
+      <p class="m-para">Jesteśmy studenckim kołem naukowym Wydziału Informatyki i Telekomunikacji Politechniki Wrocławskiej.</p>
+      <p class="m-para">Współpracujemy z firmami, rozwiązując realne problemy — od analizy danych po wdrożone systemy uczenia maszynowego. Tworzymy środowisko, gdzie nauka idzie w parze z praktyką.</p>
       <div class="m-chips">
         <span class="mchip">PyTorch</span><span class="mchip">TensorFlow</span>
         <span class="mchip">HuggingFace</span><span class="mchip">scikit-learn</span>
@@ -444,10 +454,10 @@
     <div class="tm-left rv2">
       <div class="tm-label">Jak dołączyć</div>
       <h2 class="tm-head"><span class="stroke">Trenuj</span><br>z najlepszymi</h2>
-      <p class="tm-para">Rekrutacja jest otwarta przez cały rok akademicki. Wystarczy pojawić się na naszym spotkaniu lub napisać maila. Zero barier wejścia — liczy się ciekawość.</p>
+      <p class="tm-para">Rekrutacja jest otwarta przez cały rok akademicki. Wystarczy napisać maila. Zero barier wejścia — liczy się ciekawość.</p>
       <div class="steps-join">
-        <div class="step active"><div class="step-num-small">01</div><div class="step-body"><div class="step-title2">Napisz do nas</div><div class="step-desc">Wyślij maila lub napisz na Facebooku. Odpowiadamy w 24h.</div></div></div>
-        <div class="step"><div class="step-num-small">02</div><div class="step-body"><div class="step-title2">Przyjdź na spotkanie</div><div class="step-desc">Spotkania co dwa tygodnie, sala B314, bud. C-16.</div></div></div>
+        <div class="step active"><div class="step-num-small">01</div><div class="step-body"><div class="step-title2">Napisz do nas</div><div class="step-desc">Wyślij maila. Odpowiadamy w 24h.</div></div></div>
+        <div class="step"><div class="step-num-small">02</div><div class="step-body"><div class="step-title2">Przyjdź na spotkanie</div><div class="step-desc">Poznasz aktualne projekty i ludzi z koła.</div></div></div>
         <div class="step"><div class="step-num-small">03</div><div class="step-body"><div class="step-title2">Wybierz projekt</div><div class="step-desc">Dołącz do istniejącego projektu lub zaproponuj własny temat badawczy.</div></div></div>
         <div class="step"><div class="step-num-small">04</div><div class="step-body"><div class="step-title2">Buduj i publikuj</div><div class="step-desc">Uczestniczymy w konferencjach, hackathonach i publikujemy wyniki.</div></div></div>
       </div>
@@ -464,7 +474,8 @@
   </div>
 </section>
 
-<!-- ===== EVENTS ===== -->
+<!-- ===== EVENTS (hidden for now — no upcoming events) ===== -->
+<!--
 <section class="events" id="events">
   <div class="events-top rv">
     <h2 class="ev-h">Nadchodzące<br><span>wydarzenia</span></h2>
@@ -481,61 +492,41 @@
     <div class="eitem"><div class="edate"><strong>24</strong>LIP<br>2025</div><div class="edot workshop"></div><div class="emeta"><div class="etitle">Intro to Reinforcement Learning — seria</div><span class="etag workshop">Warsztat</span></div><div class="earrow">→</div></div>
   </div>
 </section>
+-->
 
 <!-- SPLIT CTA -->
 <div class="split-cta">
   <div class="sc-left">
     <div class="scl-label">Dołącz do koła</div>
     <h2 class="scl-h">Zostań<br>częścią<br>przyszłości</h2>
-    <p class="scl-p">Otwieramy się na wszystkich studentów WIT PWr. Nie wymagamy doświadczenia — tylko zapał do nauki i odrobiny matematyki.</p>
-    <a href="mailto:estymator@pwr.edu.pl" class="scl-btn">
+    <p class="scl-p">Jesteśmy otwarci nie tylko dla studentów WIT PWr — każdy może dołączyć. Nie wymagamy doświadczenia, tylko zapału do nauki i odrobiny matematyki!</p>
+    <a href="mailto:kn.estymator@pwr.edu.pl" class="scl-btn">
       <svg viewBox="0 0 24 24"><path d="M22 6L12 13 2 6M2 6h20v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Napisz do nas
     </a>
   </div>
   <div class="sc-right">
-    <div class="scr-label">Kontakt i lokalizacja</div>
-    <h2 class="scr-h">Znajdź<br>nas<br>tutaj</h2>
-    <p class="scr-p">Wydział Informatyki i Telekomunikacji, sala B314, budynek C-16. Spotkania co dwa tygodnie w czwartek o 18:00.</p>
+    <div class="scr-label">Kontakt</div>
+    <h2 class="scr-h">Napisz<br>do<br>nas</h2>
+    <p class="scr-p">Wydział Informatyki i Telekomunikacji</p>
     <div class="contact-items">
-      <a href="mailto:estymator@pwr.edu.pl" class="ci">
+      <a href="mailto:kn.estymator@pwr.edu.pl" class="ci">
         <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M22 6L12 13 2 6M2 6h20v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        estymator@pwr.edu.pl
-      </a>
-      <a href="#" class="ci">
-        <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Bud. C-16, sala B314, PWr
-      </a>
-      <a href="#" class="ci">
-        <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-        github.com/estymator-pwr
+        kn.estymator@pwr.edu.pl
       </a>
     </div>
   </div>
 </div>
 
-<!-- ===== BLOG / NEWS ===== -->
-<section class="blog-section" id="blog">
-  <div class="section-head rv">
-    <div>
-      <div class="section-label">Aktualności</div>
-      <h2 class="section-title">Blog <span>koła</span></h2>
-    </div>
-    <p class="section-desc">Najnowsze wpisy, relacje z wydarzeń, wyniki badań i ogłoszenia.</p>
-  </div>
-  <div class="blog-grid rv-stagger" data-blog data-blog-limit="6"></div>
-</section>
-
 <!-- ===== TEAM ===== -->
 <section class="team" id="team">
   <div class="rv">
     <h2 class="team-h">Nasz zespół</h2>
-    <p class="team-sub">// Studenci i doktoranci WIT Politechniki Wrocławskiej</p>
+    <p class="team-sub">// Studenci i opiekunowie WIT Politechniki Wrocławskiej</p>
   </div>
   <div class="team-grid rv-stagger">
-    <div class="tcard"><div class="tcard-face"><div class="tavatar">KK</div><div class="trole">Przewodnicząca</div><div class="tname">Kinga Kulawik</div><div class="tfield">Deep Learning · NLP</div></div><div class="tcard-hover-bar"></div></div>
-    <div class="tcard"><div class="tcard-face"><div class="tavatar">MN</div><div class="trole">V-ce Przewodnicząca</div><div class="tname">Marta Nowak</div><div class="tfield">Computer Vision · GANs</div></div><div class="tcard-hover-bar"></div></div>
-    <div class="tcard"><div class="tcard-face"><div class="tavatar">PW</div><div class="trole">Sekretarz</div><div class="tname">Piotr Wiśniewski</div><div class="tfield">Reinforcement Learning</div></div><div class="tcard-hover-bar"></div></div>
+    <div class="tcard"><div class="tcard-face"><div class="tavatar">KK</div><div class="trole">Przewodnicząca</div><div class="tname">mgr inż. Kinga Kulawik</div><div class="tfield">Deep Learning · NLP</div></div><div class="tcard-hover-bar"></div></div>
+    <div class="tcard"><div class="tcard-face"><div class="tavatar">MN</div><div class="trole">V-ce Przewodnicząca</div><div class="tname">Yauheniya Drozd</div><div class="tfield">Data Engineering </div></div><div class="tcard-hover-bar"></div></div>
     <div class="tcard"><div class="tcard-face"><div class="tavatar">KB</div><div class="trole">Opiekun naukowy</div><div class="tname">dr hab. inż. prof. uczelni Brzostowski Krzysztof</div></div><div class="tcard-hover-bar"></div></div>
     <div class="tcard"><div class="tcard-face"><div class="tavatar">JD</div><div class="trole">Opiekun naukowy</div><div class="tname">dr inż. Jarosław Drapała</div><div class="tfield">Data Science</div></div><div class="tcard-hover-bar"></div></div>
   </div>
@@ -547,7 +538,7 @@
     <div class="foot-brand">
       <div class="fl">EST<span>.</span></div>
       <div class="fs">Studenckie Koło Naukowe ML/AI</div>
-      <p class="fp">Wydział Informatyki i Telekomunikacji<br>Politechnika Wrocławska<br>© 2025 Estymator</p>
+      <p class="fp">Wydział Informatyki i Telekomunikacji<br>Politechnika Wrocławska<br>© 2026/27 Estymator</p>
     </div>
     <div class="foot-col">
       <h4>Nawigacja</h4>
@@ -558,16 +549,14 @@
     <div class="foot-col">
       <h4>Zasoby</h4>
       <a href="#">GitHub</a><a href="#">Notion (wiki)</a>
-      <a href="#">Nagrania seminariów</a><a href="#">Blog techniczny</a>
     </div>
     <div class="foot-col">
       <h4>Kontakt</h4>
-      <a href="mailto:estymator@pwr.edu.pl">estymator@pwr.edu.pl</a>
-      <a href="#">Facebook</a><a href="#">LinkedIn</a><a href="#">Instagram</a>
+      <a href="mailto:kn.estymator@pwr.edu.pl">kn.estymator@pwr.edu.pl</a>
     </div>
   </div>
   <div class="foot-bottom">
-    <span class="fbc">Built with ♥ &amp; PyTorch · Wrocław 2025</span>
+    <span class="fbc"> · Wrocław 2026/27</span>
     <span class="fbr">Wydział Informatyki i Telekomunikacji · <strong>Politechnika Wrocławska</strong></span>
   </div>
 </footer>
@@ -588,7 +577,7 @@ const obsM = new IntersectionObserver(entries=>{
     if(e.isIntersecting && e.target.id==='manifesto'){
       setTimeout(()=>{
         animN(document.getElementById('s1'),47,'+');
-        animN(document.getElementById('s2'),23,'');
+        animN(document.getElementById('s2'),4,'');
         animN(document.getElementById('s3'),38,'');
       },200);
       obsM.unobserve(e.target);
@@ -620,7 +609,7 @@ const termData=[
   {d:5700,h:'<span class="tg">✓ Published: estymator/llama-7b-pl-v2</span>'},
   {d:6100,h:''},
   {d:6200,h:'<span class="tp">estymator@pwr</span>:<span class="tgl">~</span>$ <span class="tc">./join_estymator.sh</span>'},
-  {d:6600,h:'<span class="tg">✓ Witaj w Estymatorze 🎉  W4 · PWr · B314</span>'},
+  {d:6600,h:'<span class="tg">✓ Welcome in Estymator 🎉</span>'},
 ];
 const tb = document.getElementById('termBody');
 function runTerm() {

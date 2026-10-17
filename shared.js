@@ -101,6 +101,13 @@
     logo.innerHTML = logoMark + '<span class="nlogo-word">estymator</span>';
   });
 
+  // Big hero logo (home page only)
+  document.querySelectorAll('.hero-logo').forEach(logo => {
+    if (logo.dataset.logoInjected) return;
+    logo.dataset.logoInjected = '1';
+    logo.innerHTML = logoMark + '<span class="hero-logo-word">estymator</span>';
+  });
+
   /* ── CUSTOM CURSOR ──────────────────────────────── */
   const cur  = document.getElementById('cur');
   const cur2 = document.getElementById('cur2');
