@@ -1,4 +1,71 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="12" fill="#001B2E"/>
-  <path d="M44 16 H22 V48 H44 M22 32 H42" fill="none" stroke="#e0287d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <svg x="11" y="7" width="42" height="50" viewBox="95 45 210 250" aria-hidden="true">
+    <g stroke="rgba(235,235,233,.4)" stroke-width="1.2">
+      <line x1="200" y1="50" x2="200" y2="290"/>
+      <line x1="165" y1="80" x2="165" y2="260"/>
+      <line x1="235" y1="80" x2="235" y2="260"/>
+      <line x1="130" y1="110" x2="130" y2="230"/>
+      <line x1="270" y1="110" x2="270" y2="230"/>
+      <line x1="165" y1="80" x2="235" y2="80"/>
+      <line x1="130" y1="110" x2="270" y2="110"/>
+      <line x1="110" y1="140" x2="290" y2="140"/>
+      <line x1="100" y1="170" x2="300" y2="170"/>
+      <line x1="110" y1="200" x2="290" y2="200"/>
+      <line x1="130" y1="230" x2="270" y2="230"/>
+      <line x1="165" y1="260" x2="235" y2="260"/>
+      <line x1="200" y1="50" x2="165" y2="80"/>
+      <line x1="200" y1="50" x2="235" y2="80"/>
+      <line x1="165" y1="80" x2="130" y2="110"/>
+      <line x1="235" y1="80" x2="270" y2="110"/>
+      <line x1="200" y1="50" x2="130" y2="110"/>
+      <line x1="200" y1="50" x2="270" y2="110"/>
+      <line x1="165" y1="80" x2="200" y2="110"/>
+      <line x1="235" y1="80" x2="200" y2="110"/>
+      <line x1="130" y1="110" x2="165" y2="140"/>
+      <line x1="270" y1="110" x2="235" y2="140"/>
+      <line x1="165" y1="110" x2="200" y2="140"/>
+      <line x1="235" y1="110" x2="200" y2="140"/>
+      <line x1="110" y1="140" x2="150" y2="170"/>
+      <line x1="290" y1="140" x2="250" y2="170"/>
+      <line x1="155" y1="140" x2="200" y2="170"/>
+      <line x1="245" y1="140" x2="200" y2="170"/>
+      <line x1="100" y1="170" x2="155" y2="200"/>
+      <line x1="300" y1="170" x2="245" y2="200"/>
+      <line x1="150" y1="170" x2="200" y2="200"/>
+      <line x1="250" y1="170" x2="200" y2="200"/>
+      <line x1="110" y1="200" x2="165" y2="230"/>
+      <line x1="290" y1="200" x2="235" y2="230"/>
+      <line x1="155" y1="200" x2="200" y2="230"/>
+      <line x1="245" y1="200" x2="200" y2="230"/>
+      <line x1="130" y1="230" x2="165" y2="260"/>
+      <line x1="270" y1="230" x2="235" y2="260"/>
+      <line x1="165" y1="230" x2="200" y2="260"/>
+      <line x1="235" y1="230" x2="200" y2="260"/>
+      <line x1="165" y1="260" x2="200" y2="290"/>
+      <line x1="235" y1="260" x2="200" y2="290"/>
+      <line x1="130" y1="230" x2="200" y2="290"/>
+      <line x1="270" y1="230" x2="200" y2="290"/>
+    </g>
+    <g fill="rgba(235,235,233,.5)">
+      <circle cx="200" cy="50" r="3.5"/>
+      <circle cx="165" cy="80" r="3.5"/><circle cx="200" cy="80" r="3.5"/><circle cx="235" cy="80" r="3.5"/>
+      <circle cx="130" cy="110" r="3.5"/><circle cx="165" cy="110" r="3.5"/><circle cx="200" cy="110" r="3.5"/><circle cx="235" cy="110" r="3.5"/><circle cx="270" cy="110" r="3.5"/>
+      <circle cx="110" cy="140" r="3.5"/><circle cx="155" cy="140" r="3.5"/><circle cx="200" cy="140" r="3.5"/><circle cx="245" cy="140" r="3.5"/><circle cx="290" cy="140" r="3.5"/>
+      <circle cx="100" cy="170" r="3.5"/><circle cx="150" cy="170" r="3.5"/><circle cx="200" cy="170" r="3.5"/><circle cx="250" cy="170" r="3.5"/><circle cx="300" cy="170" r="3.5"/>
+      <circle cx="110" cy="200" r="3.5"/><circle cx="155" cy="200" r="3.5"/><circle cx="200" cy="200" r="3.5"/><circle cx="245" cy="200" r="3.5"/><circle cx="290" cy="200" r="3.5"/>
+      <circle cx="130" cy="230" r="3.5"/><circle cx="165" cy="230" r="3.5"/><circle cx="200" cy="230" r="3.5"/><circle cx="235" cy="230" r="3.5"/><circle cx="270" cy="230" r="3.5"/>
+      <circle cx="165" cy="260" r="3.5"/><circle cx="200" cy="260" r="3.5"/><circle cx="235" cy="260" r="3.5"/>
+      <circle cx="200" cy="290" r="3.5"/>
+    </g>
+    <g>
+      <path d="M 235,80 L 165,110 L 165,170 L 235,140 M 165,170 L 165,260 L 235,230" fill="none" stroke="#e0287d" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="235" cy="80" r="7.5" fill="#e0287d" stroke="#001B2E" stroke-width="2.5"/>
+      <circle cx="165" cy="110" r="7.5" fill="#e0287d" stroke="#001B2E" stroke-width="2.5"/>
+      <circle cx="165" cy="170" r="7.5" fill="#e0287d" stroke="#001B2E" stroke-width="2.5"/>
+      <circle cx="235" cy="140" r="7.5" fill="#e0287d" stroke="#001B2E" stroke-width="2.5"/>
+      <circle cx="165" cy="260" r="7.5" fill="#e0287d" stroke="#001B2E" stroke-width="2.5"/>
+      <circle cx="235" cy="230" r="7.5" fill="#e0287d" stroke="#001B2E" stroke-width="2.5"/>
+    </g>
+  </svg>
 </svg>

@@ -234,7 +234,8 @@
 .tcard:last-child { border-right:none; }
 .tcard-face { padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; text-align:center; background:var(--O); transition:background .4s; flex:1; }
 .tcard:hover .tcard-face { background:var(--T); }
-.tavatar { width:72px; height:72px; border-radius:50%; border:2px solid rgba(232,167,132,.2); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:.05em; color:var(--W); margin-bottom:1.2rem; transition:border-color .3s; background:rgba(17,74,107,.5); }
+.tavatar { width:72px; height:72px; border-radius:50%; border:2px solid rgba(232,167,132,.2); overflow:hidden; margin-bottom:1.2rem; transition:border-color .3s; background:rgba(17,74,107,.5); }
+.tavatar img { width:100%; height:100%; object-fit:cover; display:block; }
 .tcard:hover .tavatar { border-color:var(--G); }
 .trole { font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--G); margin-bottom:.4rem; }
 .tname { font-size:.9rem; font-weight:700; margin-bottom:.4rem; line-height:1.2; }
@@ -525,10 +526,10 @@
     <p class="team-sub">// Studenci i opiekunowie WIT Politechniki Wrocławskiej</p>
   </div>
   <div class="team-grid rv-stagger">
-    <div class="tcard"><div class="tcard-face"><div class="tavatar">KK</div><div class="trole">Przewodnicząca</div><div class="tname">mgr inż. Kinga Kulawik</div><div class="tfield">Deep Learning · NLP</div></div><div class="tcard-hover-bar"></div></div>
-    <div class="tcard"><div class="tcard-face"><div class="tavatar">YD</div><div class="trole">V-ce Przewodnicząca</div><div class="tname">Yauheniya Drozd</div><div class="tfield">Data Engineering </div></div><div class="tcard-hover-bar"></div></div>
-    <div class="tcard"><div class="tcard-face"><div class="tavatar">KB</div><div class="trole">Opiekun naukowy</div><div class="tname">dr hab. inż. prof. uczelni Brzostowski Krzysztof</div></div><div class="tcard-hover-bar"></div></div>
-    <div class="tcard"><div class="tcard-face"><div class="tavatar">JD</div><div class="trole">Opiekun naukowy</div><div class="tname">dr inż. Jarosław Drapała</div><div class="tfield">Data Science</div></div><div class="tcard-hover-bar"></div></div>
+    <div class="tcard"><div class="tcard-face"><div class="tavatar"><img src="photos/kinga_kulawik.PNG" alt="Kinga Kulawik"></div><div class="trole">Przewodnicząca</div><div class="tname">mgr inż. Kinga Kulawik</div><div class="tfield">Deep Learning · NLP</div></div><div class="tcard-hover-bar"></div></div>
+    <div class="tcard"><div class="tcard-face"><div class="tavatar"><img src="photos/drozd.PNG" alt="Yauheniya Drozd"></div><div class="trole">V-ce Przewodnicząca</div><div class="tname">Yauheniya Drozd</div><div class="tfield">Data Engineering </div></div><div class="tcard-hover-bar"></div></div>
+    <div class="tcard"><div class="tcard-face"><div class="tavatar"><img src="photos/krzysztof_brzostowski.jpg" alt="Brzostowski Krzysztof"></div><div class="trole">Opiekun naukowy</div><div class="tname">dr hab. inż. prof. uczelni Brzostowski Krzysztof</div></div><div class="tcard-hover-bar"></div></div>
+    <div class="tcard"><div class="tcard-face"><div class="tavatar"><img src="photos/jaroslaw_drapala.jpg" alt="Jarosław Drapała"></div><div class="trole">Opiekun naukowy</div><div class="tname">dr inż. Jarosław Drapała</div><div class="tfield">Data Science</div></div><div class="tcard-hover-bar"></div></div>
   </div>
 </section>
 
