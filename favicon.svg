@@ -59,7 +59,7 @@
       <circle cx="200" cy="290" r="3.5"/>
     </g>
     <g>
-      <path d="M 235,80 L 165,110 L 165,170 L 235,140 M 165,170 L 165,260 L 235,230" fill="none" stroke="#e0287d" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 235,80 L 165,110 L 165,260 L 235,230 M 165,170 L 235,140" fill="none" stroke="#e0287d" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
       <circle cx="235" cy="80" r="7.5" fill="#e0287d" stroke="#001B2E" stroke-width="2.5"/>
       <circle cx="165" cy="110" r="7.5" fill="#e0287d" stroke="#001B2E" stroke-width="2.5"/>
       <circle cx="165" cy="170" r="7.5" fill="#e0287d" stroke="#001B2E" stroke-width="2.5"/>

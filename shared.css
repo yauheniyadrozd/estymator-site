@@ -80,11 +80,12 @@ nav::before {
   display: inline-flex; align-items: center; gap: .65rem;
   text-decoration: none; color: var(--W);
 }
-.nlogo-mark { display: block; width: 26px; height: 26px; flex-shrink: 0; }
+.nlogo-mark { display: block; width: 26px; height: 26px; flex-shrink: 0; object-fit: contain; }
 .nlogo-word {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-weight: 600; font-size: 1.25rem; letter-spacing: -.02em; line-height: 1;
 }
+.nlogo-mark .est-bg { fill: var(--O); }
 .nlogo-mark .est-grid line { stroke: rgba(235, 235, 233, .4); stroke-width: 1.2; }
 .nlogo-mark .est-nodes circle { fill: rgba(235, 235, 233, .5); }
 .nlogo-mark .est-e-path { stroke: var(--logo-pink); stroke-width: 9; fill: none; stroke-linecap: round; stroke-linejoin: round; }
@@ -130,8 +131,11 @@ nav::before {
 .hero-copy {
   position: relative; z-index: 2;
   padding: 8rem 3rem 4rem;
-  background: linear-gradient(90deg,rgba(0,27,46,.97),rgba(0,27,46,.78));
-  border-right: 1px solid rgba(222,192,173,.12);
+  background:
+    radial-gradient(130% 90% at 20% 42%, rgba(232,167,132,.16), rgba(232,167,132,0) 55%),
+    radial-gradient(80% 60% at 70% 92%, rgba(222,192,173,.08), rgba(222,192,173,0) 60%),
+    linear-gradient(90deg,rgba(0,27,46,.97),rgba(0,27,46,.82));
+  border-right: 1px solid rgba(222,192,173,.14);
   display: flex; flex-direction: column; justify-content: flex-end;
 }
 .kicker {

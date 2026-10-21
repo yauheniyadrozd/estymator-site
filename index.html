@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Estymator · SKN · Politechnika Wrocławska</title>
 <meta name="description" content="Estymator — Studenckie Koło Naukowe Metod Sztucznej Inteligencji i Uczenia Maszynowego przy Wydziale Informatyki i Telekomunikacji Politechniki Wrocławskiej. Współpracujemy z firmami, rozwiązując realne problemy ML/AI.">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,900;1,9..144,300;1,9..144,900&display=swap" rel="stylesheet">
@@ -22,12 +22,52 @@
 .hero-copy { grid-column:1; grid-row:1; }
 .hero-logo {
   display: flex; flex-direction: column; align-items: flex-start; gap: .9rem;
+  will-change: transform;
+  position: relative;
 }
-.hero-logo .nlogo-mark { width: 200px; height: 238px; }
+.hero-logo .nlogo-mark {
+  width: 200px; height: auto;
+  animation: logo-float 6s ease-in-out infinite, logo-glow 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 18px rgba(232,167,132,.28)) drop-shadow(0 30px 60px rgba(0,0,0,.55));
+}
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50%      { transform: translateY(-14px) rotate(-1.5deg) scale(1.04); }
+}
+@keyframes logo-glow {
+  0%, 100% { filter: drop-shadow(0 0 14px rgba(232,167,132,.16)) drop-shadow(0 30px 60px rgba(0,0,0,.55)); }
+  50%      { filter: drop-shadow(0 0 32px rgba(232,167,132,.55)) drop-shadow(0 0 70px rgba(232,167,132,.28)) drop-shadow(0 30px 60px rgba(0,0,0,.55)); }
+}
+/* diamonds / sparkles */
+.sparkle {
+  position: absolute;
+  color: #FFF9E2;
+  text-shadow: 0 0 10px rgba(232,167,132,.85), 0 0 22px rgba(222,192,173,.5);
+  pointer-events: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+.sparkle.s1 { top: -4%; left: -6%; }
+.sparkle.s2 { top: 8%; right: -8%; font-size: .8rem; animation-delay: .6s; }
+.sparkle.s3 { bottom: 12%; left: -7%; font-size: .9rem; animation-delay: 1.2s; }
+.sparkle.s4 { bottom: -2%; right: 4%; animation-delay: 1.8s; }
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(.2) rotate(0deg); }
+  50%      { opacity: 1; transform: scale(1) rotate(90deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo .nlogo-mark { animation: none; }
+  .sparkle { animation: none; opacity: .7; }
+}
 .hero-logo-word {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-weight: 600; font-size: clamp(2.4rem, 5.5vw, 3.6rem); letter-spacing: -.03em;
-  line-height: 1; color: var(--W);
+  line-height: 1;
+  background: linear-gradient(180deg, #FFF9E2 0%, #E8A784 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 .hero-panel { grid-column:2; grid-row:1; }
 .hero-bar {
@@ -260,7 +300,7 @@
   /* Hero index */
   .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
   .hero-copy { grid-column:1; grid-row:1; }
-  .hero-logo .nlogo-mark { width: 140px; height: 167px; }
+  .hero-logo .nlogo-mark { width: 140px; height: auto; }
   .hero-panel { grid-column:1; grid-row:2; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
   .hero-bar { grid-column:1; grid-row:3; grid-template-columns: 1fr 1fr; }
   .hbar-item { padding: 1rem 1.2rem; }
@@ -638,6 +678,40 @@ setInterval(()=>{
   si = (si+1) % stepsEl.length;
   stepsEl[si].classList.add('active');
 },2000);
+
+// HERO LOGO PARALLAX TILT (wow)
+(function () {
+  const heroLogo = document.querySelector('.hero-logo');
+  const hero = document.querySelector('.hero');
+  const fine = window.matchMedia('(pointer: fine)').matches;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!heroLogo || !hero || !fine || reduced) return;
+  let cx = 0, cy = 0, tx = 0, ty = 0;
+  hero.addEventListener('mousemove', function (e) {
+    const r = hero.getBoundingClientRect();
+    cx = (e.clientX - r.left) / r.width - 0.5;
+    cy = (e.clientY - r.top) / r.height - 0.5;
+  });
+  hero.addEventListener('mouseleave', function () { cx = 0; cy = 0; });
+  (function tilt() {
+    tx += (cx * 14 - tx) * 0.08;
+    ty += (cy * 14 - ty) * 0.08;
+    heroLogo.style.transform = 'perspective(900px) rotateX(' + (-ty).toFixed(3) + 'deg) rotateY(' + tx.toFixed(3) + 'deg)';
+    requestAnimationFrame(tilt);
+  })();
+})();
+
+// DIAMOND SPARKLES
+(function () {
+  const heroLogo = document.querySelector('.hero-logo');
+  if (!heroLogo) return;
+  [['s1','✦'], ['s2','✧'], ['s3','✦'], ['s4','✧']].forEach(function (s) {
+    const el = document.createElement('span');
+    el.className = 'sparkle ' + s[0];
+    el.textContent = s[1];
+    heroLogo.appendChild(el);
+  });
+})();
 </script>
 </body>
 </html>
